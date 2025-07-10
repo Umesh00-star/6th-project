@@ -1,0 +1,22 @@
+.comingsoon-section {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
+  min-height: 450px;
+}
+
+/* Each side takes half of the screen on desktop */
+.comingsoon-section > div {
+  flex: 1 1 50%;
+  box-sizing: border-box;
+}
+
+/* On smaller screens, stack vertically */
+@media (max-width: 768px) {
+  .comingsoon-section {
+    flex-direction: column;
+  }
+  .comingsoon-section > div {
+    flex: 1 1 100%;
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.360debe4.css",
+    "main.js": "/static/js/main.aae39fd5.js",
+    "static/media/TechProducts.png": "/static/media/TechProducts.9cdf9b183b4d21fd17a3.png",
+    "static/media/logo.png": "/static/media/logo.3ee0e36785e820fccdee.png",
+    "static/media/hero-bg.jpg": "/static/media/hero-bg.6f472bcee9c428a1ddf8.jpg",
+    "static/media/nauri-bg.jpg": "/static/media/nauri-bg.b7d4baaf9fde5a1220b3.jpg",
+    "static/media/CommercialProducts.png": "/static/media/CommercialProducts.d70c232155455b3eaa04.png",
+    "static/media/kitchenproducts.png": "/static/media/kitchenproducts.64d497227f71ead9d4d6.png",
+    "static/media/PrinInDemand.png": "/static/media/PrinInDemand.eb850b4ff8d53e8b8f36.png",
+    "static/media/footer-logo.png": "/static/media/footer-logo.8558fd219d3e93e8b8bf.png",
+    "index.html": "/index.html",
+    "main.360debe4.css.map": "/static/css/main.360debe4.css.map",
+    "main.aae39fd5.js.map": "/static/js/main.aae39fd5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.360debe4.css",
+    "static/js/main.aae39fd5.js"
+  ]
+}

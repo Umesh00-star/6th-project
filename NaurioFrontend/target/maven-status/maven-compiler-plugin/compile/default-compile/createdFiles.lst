@@ -1,0 +1,5 @@
+com\naurio\naurioecommerce\NaurioEcommerceApplication.class
+com\naurio\naurioecommerce\model\Role.class
+com\naurio\naurioecommerce\model\Product.class
+com\naurio\naurioecommerce\model\User.class
+com\naurio\naurioecommerce\model\Category.class

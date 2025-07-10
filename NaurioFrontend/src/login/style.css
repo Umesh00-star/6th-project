@@ -1,0 +1,95 @@
+/* layout */
+
+
+/* for auth wrapper */
+.auth-wrapper {
+  display: flex;
+  height: 100vh;
+  width: auto ;
+  font-family: sans-serif;
+  justify-content: center;
+  
+}
+
+ .form-side h2 {
+    text-align: center;
+    justify-content: center;
+}
+
+
+/* for login pages */
+
+.form-side {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 50%;
+    background:linear-gradient(130deg,#8e44ad, #3498db);
+    justify-content: center;
+    text-align: center;
+}
+
+.form-box {
+    background: #5149be;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+    width: 320px;
+    transition: all 0.3s ease-in-out;
+    }
+
+ .input{
+        width: 100%;
+        height: 50px;
+        padding: 12px;
+        margin-top: 15px;
+        border-radius: 10px;
+        border: 2px solid;
+        box-sizing: border-box;
+        /* background: linear-gradient(#8e44ad, #3498db); */
+}
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper .input {
+    width: 100%;
+    padding-right: 60px;
+}
+
+.toogle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 0.9em;
+    color:grey;
+    user-select: none;
+}
+
+.btn{
+        width: 100%;
+        background-color:darkblue;
+        padding: 12px;
+        margin-top: 20px;
+        border-radius: 8px;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+}
+
+.toogle-link:hover{
+    text-decoration: box;
+    color: darkblue;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.toggle-link:hover {
+  text-decoration: underline;
+  color: navy;
+  cursor: pointer;
+  font-weight: 600;
+}

@@ -1,0 +1,25 @@
+{
+  "name": "naurioempire",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: nonpm insta test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OleeNK/Naurio-DEMO.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OleeNK/Naurio-DEMO/issues"
+  },
+  "homepage": "https://github.com/OleeNK/Naurio-DEMO#readme",
+  "description": "",
+  "dependencies": {
+    "install": "^0.13.0",
+    "packages": "^0.0.8"
+  }
+}

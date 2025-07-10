@@ -1,0 +1,49 @@
+.footer {
+  width: 100vw;
+  background: linear-gradient(135deg, #004d4d, #002222); /* dark teal gradient */
+  color: #b2dfdb; /* softer light teal text */
+  padding: 25px 40px;
+  box-sizing: border-box;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.6); /* subtle shadow on top */
+  border-top: 2px solid #008080; /* thin teal border for sharpness */
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7); /* subtle text shadow for clarity */
+}
+
+.footer-logo img {
+  height: 40px;
+  width: auto;
+  filter: drop-shadow(0 0 3px rgba(0, 128, 128, 0.7)); /* soft glow effect */
+}
+
+.footer-text p {
+  margin: 4px 0;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .footer-logo {
+    margin-bottom: 15px;
+  }
+}

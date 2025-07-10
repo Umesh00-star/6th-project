@@ -1,0 +1,66 @@
+.nauri-section {
+  width: 100vw;
+  height: 70vh;
+  background: 
+    linear-gradient(rgba(10, 25, 48, 0.85), rgba(10, 25, 48, 0.85)),
+    url('../../img/nauri-bg.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 20px;
+  font-family: 'Montserrat', sans-serif;
+  color: #f4e3dc;
+  text-align: center;
+  position: relative;
+}
+
+.nauri-overlay {
+  max-width: 700px;
+  z-index: 1;
+}
+
+.nauri-overlay h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #d4af7f;
+  text-shadow: 0 0 10px #d4af7faa;
+}
+
+.nauri-overlay p {
+  font-size: 1.3rem;
+  margin-bottom: 40px;
+  font-weight: 500;
+  color: #c2b6ae; /* A soft luxury-neutral text tone */
+  line-height: 1.6;
+}
+
+.nauri-button {
+  padding: 16px 48px;
+  font-size: 1.15rem;
+  background: transparent;
+  border: 2.5px solid #d4af7f;
+  border-radius: 40px;
+  color: #d4af7f;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  transition: all 0.35s ease;
+  box-shadow: none;
+  user-select: none;
+}
+
+.nauri-button:hover {
+  background: #d4af7f;
+  color: #0a1930;
+  box-shadow: 0 0 20px #d4af7fcc;
+  transform: translateY(-3px);
+}
+
+.nauri-button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px #d4af7faa;
+}
