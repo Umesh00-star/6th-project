@@ -1,133 +1,145 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { loginUser, registerUser } from "../Auths/Auth";
-import {useNavigate} from 'react-router-dom';
-import '../img/logo.png'
- import './style.css';
-
- 
-//  import TruckAnimation from "../Truck/TruckAnimation";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Auths/AuthLogic";
+import "../img/logo.png";
+import "./style.css";
 
 const Login = () => {
-       const [isLogin, setIsLogin] = useState(true);
-      const [form, setForm] = useState({ name:'', email:'', password:''});
-      const [error, setError] = useState('');
-      const navigate = useNavigate();
+    const {login} = useAuth();
+     const navigate = useNavigate();
+  // State to toggle between login and register forms
+  const [isLogin, setIsLogin] = useState(true);
 
-   const handleChange = (e) => {
-      setForm({ ...form, [e.target.name]: e.target.value});
-   };
+  // Form data state
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
 
-const [showPassword, setShowPassword] = useState(' ');
+  // Error message state
+  const [error, setError] = useState("");
 
-   const handleSubmit = async (e) => {
-      e.preventDefault();
-      setError('');
+  // Password visibility toggle state (boolean)
+  const [showPassword, setShowPassword] = useState(false);
 
+  
 
-      if (isLogin) {
-         const res = await loginUser(form.email, form.password);
-         if (res.success) {
-            navigate('/'); // adjust login route post
-             }
-             else {
-               setError(res.message);
-             }
+  // Handle input changes and update form state
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  // Handle form submission for login or registration
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(""); // Clear previous errors
+
+    if (isLogin) {
+      // Attempt login
+      const res = await loginUser(form.email, form.password);
+      if (res.success) {
+        login(res.data.user, res.data.token);
+        navigate("/"); // Redirect after successful login (adjust route if needed)
+      } else {
+        setError(res.message);
       }
-      else {
-         const res = await registerUser(form.name, form.email, form.password);
-         if (res.success) {
-            setIsLogin(true);
-         }
-         else {
-            setError(res.message);
-            }
+    } else {
+      // Attempt registration
+      const res = await registerUser(form.name, form.email, form.password);
+      if (res.success) {
+        setIsLogin(true); // Switch to login form after successful registration
+      } else {
+        setError(res.message);
       }
+    }
+  };
 
-   };
+  return (
+    <div className="auth-wrapper">
+      <div className="form-side">
+        <form className="form-side" onSubmit={handleSubmit} aria-label={isLogin ? "Login form" : "Registration form"}>
+          <h2>{isLogin ? "Login" : "Sign up"}</h2>
 
-   return (
-
-      <div className ="auth-wrapper">
-       
-
-<div className="form-side">
-    <form className = "form-side" onSubmit= {handleSubmit}>
-    <h2>{isLogin ?'Login':'Sign up'} </h2>
-    {!isLogin && (
-        <input
-        type="text"
-        name= "name"
-        placeholder="Name"
-        className="input"
-        value={form.name}
-        onChange={handleChange}
-        />
-    )}
-
-
-     <input
-     type="email"
-     name="email"
-     placeholder="Email"
-     className="input"
-     value={form.email}
-     onChange={handleChange}
-     />
-
-    {/* <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        className="input"
-        value={form.password}
-        onChange={handleChange}
-    /> */}
-
-        <div className="password-wrapper">
+          {/* Show name input only on registration */}
+          {!isLogin && (
             <input
-          type={showPassword ? 'text': 'password'}
-          name="password"
-          placeholder="Password"
-        className="input"
-        value={form.password}
-        onChange={handleChange}
+              type="text"
+              name="name"
+              placeholder="Name"
+              className="input"
+              value={form.name}
+              onChange={handleChange}
+              required
+              aria-label="Name"
+            />
+          )}
+
+          {/* Email input */}
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            className="input"
+            value={form.email}
+            onChange={handleChange}
+            required
+            aria-label="Email"
           />
-          <span
-          className="toogle-password"
-          onClick={() => setShowPassword(!showPassword)}
-          style={{cursor:'pointer', marginLeft:'8px'}}
-          >
-            {showPassword?' Hide' : 'Show'}
-          </span>
-        </div>
 
+          {/* Password input with toggle */}
+          <div className="password-wrapper">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              className="input"
+              value={form.password}
+              onChange={handleChange}
+              required
+              aria-label="Password"
+            />
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              style={{ cursor: "pointer", marginLeft: "8px", background: "none", border: "none" }}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
 
-    <button className="btn"> {isLogin ? 'Login': 'Register'} </button> 
-    {error && <p style={{color:'red', marginTop:'10px'}}>{error}</p>}
+          {/* Submit button */}
+          <button className="btn" type="submit">
+            {isLogin ? "Login" : "Register"}
+          </button>
 
+          {/* Display error message */}
+          {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
 
-        <p className="toogle-text">
+          {/* Toggle between login and registration forms */}
+          <p className="toggle-text">
             {isLogin ? (
-                <>
-                    Don't have an account? {'   ' }
-                    <span className="toogle-link" onClick={() => setIsLogin(false)}>Sign up</span>
-                </>
+              <>
+                Don't have an account?{" "}
+                <span className="toggle-link" onClick={() => setIsLogin(false)} role="button" tabIndex={0} onKeyPress={() => setIsLogin(false)}>
+                  Sign up
+                </span>
+              </>
             ) : (
-                <>
-                Already have an account?{''}
-                <span className="toggle-link" onClick={() => setIsLogin(true)}>Login</span>
-                </>
+              <>
+                Already have an account?{" "}
+                <span className="toggle-link" onClick={() => setIsLogin(true)} role="button" tabIndex={0} onKeyPress={() => setIsLogin(true)}>
+                  Login
+                </span>
+              </>
             )}
-        </p>
-         </form>
-      
-</div>
+          </p>
+        </form>
+      </div>
 
-             {/* <TruckAnimation/> */}
+      {/* You can uncomment and add your TruckAnimation here */}
+      {/* <TruckAnimation /> */}
+    </div>
+  );
+};
 
-</div>
-   );
-
-    };
-
-    export default Login;
+export default Login;

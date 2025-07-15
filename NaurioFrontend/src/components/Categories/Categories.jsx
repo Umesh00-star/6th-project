@@ -5,15 +5,17 @@ import commercialImg from '../../img/CommercialProducts.png';
 import kitchenImg from '../../img/kitchenproducts.png';
 import printImg from '../../img/PrinInDemand.png';
 import './Categories.css';
+import { useNavigate } from 'react-router-dom';
 
 const items = [
-  { name: 'Tech Products', img: techImg },
-  { name: 'Commercial & Official', img: commercialImg },
-  { name: 'Kitchen Products', img: kitchenImg },
-  { name: 'Print-On-Demand', img: printImg },
+  { name: 'Tech Products', img: techImg, link:'/Tech' },
+  { name: 'Commercial & Official', img: commercialImg,  link:'/Commercial' },
+  { name: 'Kitchen Products', img: kitchenImg, link:'/Kitchen'  },
+  { name: 'Print-On-Demand', img: printImg, link:'/Print'  },
 ];
 
 const Categories = () => {
+  const navigate= useNavigate();
   return (
     <section className="categories-section">
       <motion.h2
@@ -34,6 +36,8 @@ const Categories = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: i * 0.2 }}
             whileHover={{ scale: 1.05, boxShadow: '0 10px 25px rgba(0,0,0,0.15)' }}
+              onClick={() => navigate(item.link)} // 🧠 navigate to page
+            style={{ cursor: 'pointer' }}
           >
             <div className="img-wrapper">
               <img src={item.img} alt={item.name} className="category-img" />

@@ -2,26 +2,28 @@ package com.naurioecommerce.dto;
 
 public class AuthResponse {
     private String token;
-    private String email;
+    private UserDto user;
 
-    public AuthResponse(String token, String email) {
+    public AuthResponse(String token, UserDto user) {
         this.token = token;
-        this.email = email;
+        this.user = user;
     }
+
+    // Getters and setters
 
     public String getToken() {
         return token;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public void setToken(String token) {
         this.token = token;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
     }
 }

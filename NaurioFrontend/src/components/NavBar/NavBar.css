@@ -91,6 +91,8 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 20px;
+      overflow: visible; /* ✅ Ensure dropdown can appear */
+  z-index: auto;
   }
 
   .navbar-menu {
@@ -105,43 +107,107 @@
   }
 }
 
-
-/* for profiles */
-.profile-menu {
-  position:relatives;
-  cursor:pointer;
+/* for cart */
+.cart-icon img {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
-.profile-name {
-  font-weight:bold;
-  padding: 8px;
+.cart-icon img:hover {
+  transform: scale(1.1);
+}
+
+/* for profiles */
+
+.profile_icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+  border: 2px solid #d4af7f;
+}
+
+.profile-container {
+  position: relative;
+  margin-left: auto;
+}
+
+
+.profile_menu {
+  
+  position: relative;
+  display: inline-block;
+  
+}
+
+.profile_name {
+ /* color: #e6e1de; */
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  display:inline-block;
 }
 
 .dropdown {
-  position: absolute;
+   position: absolute;
   top: 100%;
   right: 0;
-  background-color: white;
-  border: 1 px solid #ddd;
-  padding:10px;
-  min-width:150px;
-  box-shadow: 0px 4px 6px rgba(0,0,0.0.1);
-  z-index: 100;
-  }
+  background: white;
+  color: black;
+  padding: 10px;
+  border: 1px solid #ccc;
+  z-index: 999;
+  min-width: 150px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
 
- .drpodown p {
+.dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown li {
+  margin: 8px 0;
+}
+
+.dropdown button,
+.setting {
+  width: 100%;
+  padding: 8px;
+  background: #004d4d;
+  color: white;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown button:hover,
+.setting:hover {
+  background: orangered;
+}
+ /* .dropdown p {
     margin: 5px 0;
-     }
+     } */
 
- .dropdown button {
+ /* .dropdown button {
         width: 100%;
         margin-top: 5px;
         padding: 6px;
         background-color: blue;
         border: none;
         cursor: pointer;
-         }
+         } */
 
-.dropdown button:hover {
-  background-color: orangered;
-}
+
+/* 
+* {
+  outline: 1px solid rgba(255,0,0,0.5) !important; 
+  /* Helps visualize element bounds */
+/* } */ 

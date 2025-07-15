@@ -10,6 +10,7 @@ import com.naurioecommerce.config.JwtTokenProvider;
 import com.naurioecommerce.dto.AuthRequest;
 import com.naurioecommerce.dto.AuthResponse;
 import com.naurioecommerce.dto.RegisterRequest;
+import com.naurioecommerce.dto.UserDto;
 import com.naurioecommerce.entity.User;
 import com.naurioecommerce.repository.UserRepository;
 
@@ -33,19 +34,33 @@ public class AuthService {
     }
 
     public AuthResponse login(AuthRequest request) {
-        Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
-        );
+    Authentication authentication = authenticationManager.authenticate(
+        new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+    );
 
-        String token = jwtTokenProvider.generateToken(authentication);
-        return new AuthResponse(token, request.getEmail());
-    }
+    String token = jwtTokenProvider.generateToken(authentication);
+
+    User user = userRepository.findByEmail(request.getEmail())
+                  .orElseThrow(() -> new RuntimeException("User not found"));
+
+    // Map to UserDTO
+    UserDto userDto = new UserDto(
+        user.getId(),
+        user.getFullName(),
+        user.getEmail(),
+        user.getRole() // or null if not available
+    );
+
+    return new AuthResponse(token, userDto);
+}
 
     public AuthResponse register(RegisterRequest request) {
         User user = new User();
         user.setFullName(request.getFullName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+         user.setRole("user"); // default role
+
 
         userRepository.save(user);
 
@@ -54,6 +69,15 @@ public class AuthService {
         );
 
         String token = jwtTokenProvider.generateToken(authentication);
-        return new AuthResponse(token, request.getEmail());
+
+        
+        UserDto userDto = new UserDto(
+            user.getId(),
+            user.getFullName(), 
+            user.getEmail(),
+            user.getRole()
+        );
+        
+        return new AuthResponse(token, userDto);
     }
 }

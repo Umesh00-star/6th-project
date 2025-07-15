@@ -1,30 +1,74 @@
-import React,{useState} from 'react';
+import React, {useEffect, useState } from 'react';
 import logo from '../../img/logo.png';
 import './NavBar.css';
-import Login from '../../login/Login';
-import ReactDOM from 'react-dom/client';
-import { Link  } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../Auths/AuthLogic';
-
-
+import axios from "axios";
+import Profile from '../Profiles/Profile';
+import cartlogo from '../../img/cart-logo.png';
+import profilelogo from '../../img/profile-logo.png';
+import Cart from '../../ShowProduct/Carts';
 
 function NavBar() {
-
-  const {user, logout} = useAuth(); // provide access to user and logout
+  const { user, logout, loading } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
+   const [cartCount, setCartCount] = useState(0);
+
+    const isLoggedIn = user && user.role !== "shop";
+
+//  if (loading) return null;
+  const toggleDropdown = () => 
+    // setShowDropdown(!showDropdown);
+    setShowDropdown((prev) => !prev);
   
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
 
   const handleLogout = () => {
     logout();
     setShowDropdown(false);
   };
-  
-  
+
+
+  // Don't render navbar while loading user
+  // if (loading) {
+  //   return (
+  //     <nav className="navbar">
+  //       <div className="navbar-logo">
+  //         <span>Loading...</span>
+  //       </div>
+  //     </nav>
+  //   );
+  // }
+
+    
+  useEffect(() => {
+    if (isLoggedIn) {
+      // Fetch cart from backend
+      axios.get(`http://localhost:8080/api/cart/${user.id}`)
+        .then(res => {
+          setCartCount(res.data.length); // Unique items
+        })
+        .catch(err => console.error("Cart fetch error", err));
+    } else {
+      // Load guest cart from sessionStorage
+      const guestCart = sessionStorage.getItem("guest_cart");
+      if (guestCart) {
+        const parsed = JSON.parse(guestCart);
+        setCartCount(parsed.length); // Count unique products
+      } else {
+        setCartCount(0);
+      }
+    }
+  }, [isLoggedIn, user]);
+
+
+
+  // Choose Home label depending on user role
+  const homeLabel = user?.role === 'shop' ? 'Shop Home' : 'Home';
+
   return (
-    <nav className="navbar">
+    <nav className="navbar" 
+    // role="navigation" aria-label="Main Navigation"
+    >
       <div className="navbar-logo">
         <div className="logo-circle">
           <img src={logo} alt="Naurio Ecommerce Logo" />
@@ -36,50 +80,103 @@ function NavBar() {
           <span className="multi-color">R</span>
           <span className="multi-color">I</span>
           <span className="multi-color">O</span>{' '}
-          <span className="ecommerce-title">Ecommerce</span>
+          <span className="ecommerce-title">
+            {user?.role === 'shop' ? 'Shop Dashboard' : 'Ecommerce'}
+          </span>
         </h1>
       </div>
 
       <ul className="navbar-menu">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#categories">Categories</a></li>
-        <li><a href="#age-filter">Shop by Age</a></li>
+        {/* Home link to "/" for all users */}
+        <li><Link to="/">{homeLabel}</Link></li>
+
+        {/* Show additional menu only for non-shop or guest users */}
+        {(!user || user.role !== 'shop') && (
+          <>
+            <li><Link to="/Categories">Categories</Link></li>
+            <li><Link to="/AgeFilter">Shop by Age</Link></li>
+         
+        
+
         <li><a href="#contact">Contact</a></li>
-        {/* <li><a href="/login">Sign In</a></li> */}
-        {/* <li><Link to="/Login" className="signin-button">Sign In</Link></li> */}
-        {user ? (
-        //   <>
-        //   <li><span>Hello,{user.name}</span></li>
-        //  <li><button onClick={logout} className='logout-button'></button></li>
-        //  </>
-
-        <li className="profile-menu">
-          <span onClick={toggleDropdown} classname="profile-name">
-            {user.name}
-          </span>
-
-          {showDropdown && (
-            <div className="dropdown">
-              <p><strong>Full Name:</strong>{user.name}</p>
-           {/*<p> Email: {user.email}</p> */}
-           <button onClick={() => alert('Settings')}>Settings</button>
-           <button onClick={handleLogout}>Logout</button>
-            </div>
+        <li className="cart-icon">
+            <Link to="/cart">
+              <img src={cartlogo} alt="Cart" />
+                {cartCount > 0 && (
+            <span
+              className="absolute -top-1 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+              style={{ fontSize: "0.75rem" }}
+            >
+              {cartCount}
+            </span>
           )}
-
-        </li>
-
-        ): (
-          <li><Link to ="/Login" className="signin-button">Sign In</Link></li>
+            </Link>
+          </li>
+           </>
         )}
-      
+
+
+        {user?.role === 'shop' && (
+  <li>
+    <Link to="/product">Upload Product</Link>
+  </li>
+)}
+          {/* <li><img src={logo} alt="Naurio Ecommerce Logo" /></li> */}
+           
+           {/* <div className="Profile-container"> */}
+            
+        {/* Authenticated User Menu */}
+        {user ? (
+          <li className="profile_menu">
+            <span
+              onClick={toggleDropdown}
+              className="profile_name"
+              // tabIndex={2}
+              role="button"
+              aria-haspopup="true"
+              aria-expanded={showDropdown}
+            >
+             
+               {/* <img
+      src={user?.profileImage || '/default-profile.png'} // fallback image
+      alt="Profile"
+      className="profile_icon"
+    /> */}
+             <img
+                src={profilelogo}
+                alt="Profile"
+                className="profile_icon"
+              />
+            </span>
+
+            {showDropdown && (
+              <div className="dropdown" role="menu">
+                <p><strong>{user.name}</strong></p>
+                <ul>
+                  <li>
+                    <Link to="/Settings" className="setting">
+                      Settings
+                    </Link>
+                  </li>
+                  <li>
+                    <button onClick={handleLogout}>Logout</button>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </li>
+        ) : (
+          <li>
+            <Link to="/Login" className="signin-button">
+              Sign In
+            </Link>
+          </li>
+        )}
+        
+        {/* </div> */}
       </ul>
-      
     </nav>
   );
 }
-
-
-
 
 export default NavBar;
