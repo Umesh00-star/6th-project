@@ -6,7 +6,7 @@ import App from './App';
 import { AuthProvider } from './Auths/AuthLogic';
 import { BrowserRouter } from 'react-router-dom';
 
-fetch('http://localhost:8080/api/products')
+fetch('http://localhost:8080/api/product')
 .then(res =>res.json())
 .then(data => console.log(data))
 .catch(err => console.error(err));

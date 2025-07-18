@@ -5,7 +5,7 @@ const TechProduct = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/products/category/tech')
+        fetch('http://localhost:8080/api/product/category/tech')
             .then((response) => response.json())
             .then((data) => {
                 if (Array.isArray(data)) {

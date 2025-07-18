@@ -85,27 +85,27 @@ const Login = () => {
           />
 
           {/* Password input with toggle */}
-          <div className="password-wrapper">
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Password"
-              className="input"
-              value={form.password}
-              onChange={handleChange}
-              required
-              aria-label="Password"
-            />
-            <button
-              type="button"
-              className="toggle-password"
-              onClick={() => setShowPassword(!showPassword)}
-              aria-label={showPassword ? "Hide password" : "Show password"}
-              style={{ cursor: "pointer", marginLeft: "8px", background: "none", border: "none" }}
-            >
-              {showPassword ? "Hide" : "Show"}
-            </button>
-          </div>
+        <div className="password-wrapper">
+  <input
+    type={showPassword ? "text" : "password"}
+    name="password"
+    placeholder="Password"
+    className="input"
+    value={form.password}
+    onChange={handleChange}
+    required
+    aria-label="Password"
+  />
+  <button
+    type="button"
+    className="toggle-password"
+    onClick={() => setShowPassword(!showPassword)}
+    aria-label={showPassword ? "Hide password" : "Show password"}
+  >
+    {showPassword ? "Hide" : "Show"}
+  </button>
+</div>
+
 
           {/* Submit button */}
           <button className="btn" type="submit">

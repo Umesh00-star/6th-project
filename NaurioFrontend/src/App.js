@@ -33,6 +33,15 @@ import ShopHome from './Owners/ShopHome';
 // Auth hook to get user info
 import { useAuth } from './Auths/AuthLogic';
 
+// orders related
+import BuyNowPage from './Orders/BuyNow';
+import OrderConfirmation from './Orders/OrderConfirm';
+import OrdersPage from './Orders/OrderPage';
+import Shopnow from './ShowProduct/Shopnow';
+import Contact from './components/Contactus/Contact';
+import bot from './components/NauriBot/Bot';
+
+
 function App() {
   const { user } = useAuth();
 
@@ -81,10 +90,18 @@ function App() {
         <Route path="/product" element={<ProductUpload />} />
         <Route path="/shops" element={<Shops />} />
         <Route path="/edit-product/:id" element={<EditProduct />} />
-        <Route path='/cart' element={Cart}/>
+        <Route path='/cart' element={<Cart/>}/>
 
         {/* Fallback route for unmatched paths (optional) */}
         <Route path="*" element={<Navigate to="/" replace />} />
+
+         {/* Orders related */}
+          <Route path="/buy-now" element={<BuyNowPage />} />
+        <Route path="/confirm-order" element={<OrderConfirmation />} />
+          <Route path="/orders" element={<OrdersPage />} />
+          <Route path="/shop-now" element={<Shopnow/>}></Route>
+           <Route path="/contact" element={<Contact/>}></Route>
+           <Route path="/Bot" element={<bot/>}></Route>
       </Routes>
     </>
   );

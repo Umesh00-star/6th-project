@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { isloggedIn, logout as clearSession } from "./Auth"; // Import logout to clear backend sessions if needed
+import { isloggedIn, logout as clearSession, getUserProfile} from "./Auth"; // Import logout to clear backend sessions if needed
 
 // Create a React Context for authentication
 const AuthContext = createContext();
 
 
-// 🔒 AuthProvider Component
+//  AuthProvider Component
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null); // Stores logged-in user data
@@ -21,18 +21,33 @@ export const AuthProvider = ({ children }) => {
 
       //  setUser(JSON.parse(storedUser));
       try {
-        setUser(JSON.parse(storedUser)); // Restore user from storage
-      } catch (e) {
+      const parsedUser = JSON.parse(storedUser);
+
+        getUserProfile(parsedUser.id)
+          .then((res) => {
+            if (res.success) {
+              setUser(res.data);
+              localStorage.setItem("user", JSON.stringify(res.data));
+            } else {
+              logout();
+            }
+            setLoading(false);
+          })
+            .catch(() => {
+            logout();
+            setLoading(false);
+          });
+        }
+          catch (e) {
         console.error("Failed to parse stored user", e);
-        setUser(null);
+         logout();
+        setLoading(false);
       }
-    } else {
+    } 
+    else {
       setUser(null); // No session found
+      setLoading(false);
     }
-
-
-    // loadings
-    setLoading(false);
 
   }, []);
 
@@ -102,9 +117,9 @@ const deleteuser = async (userId) => {
 
 };
 
-// ==========================
-// ✅ useAuth Hook (access context easily)
-// ==========================
+
+//  useAuth Hook (access context easily)
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
 

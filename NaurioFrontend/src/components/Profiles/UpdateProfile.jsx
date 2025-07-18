@@ -3,7 +3,7 @@ import { useAuth } from "../../Auths/AuthLogic";
 import { useNavigate } from "react-router-dom";
 import { getUserProfile, updateUserProfile } from "../../Auths/Auth";
 import Shops from "../../Owners/Shops";
-
+import './ProfileStyle/Update.css';
 
 
 const UpdateProfile = () => {
@@ -81,7 +81,8 @@ if (res.success) {
   if (error) return <div style={{ color: "red" }}>{error}</div>;
 
   return (
-    <div style={{ padding: "2rem" }}>
+    <div className="update-profile-container" style={{ padding: "2rem" }}>
+
       <h2>Update Profile</h2>
 
       <form onSubmit={handleSubmit}>

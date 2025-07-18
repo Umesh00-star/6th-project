@@ -8,6 +8,9 @@ import Profile from '../Profiles/Profile';
 import cartlogo from '../../img/cart-logo.png';
 import profilelogo from '../../img/profile-logo.png';
 import Cart from '../../ShowProduct/Carts';
+import OrdersPage from '../../Orders/OrderPage';
+import Contact from "../Contactus/Contact";
+
 
 function NavBar() {
   const { user, logout, loading } = useAuth();
@@ -98,7 +101,9 @@ function NavBar() {
          
         
 
-        <li><a href="#contact">Contact</a></li>
+        <li><Link to="/contact">Contact</Link></li>
+        <li><Link to="/orders">Order</Link></li>
+         
         <li className="cart-icon">
             <Link to="/cart">
               <img src={cartlogo} alt="Cart" />

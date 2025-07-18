@@ -19,7 +19,6 @@
   "homepage": "https://github.com/OleeNK/Naurio-DEMO#readme",
   "description": "",
   "dependencies": {
-    "express": "^5.1.0",
     "install": "^0.13.0",
     "packages": "^0.0.8"
   }

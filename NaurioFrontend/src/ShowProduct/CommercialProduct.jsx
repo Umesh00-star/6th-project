@@ -11,8 +11,8 @@ const CommercialProduct = () => {
         // axios.get("http://localhost:8080/api/products/category/commercial")
         // .then(res => setProducts(res.data))
         // .catch(err => console.error(err));
-        fetch('http://localhost:8080/api/product')
-        .then((response) => response.json)
+        fetch("http://localhost:8080/api/product/category/commercial")
+        .then((response) => response.json())
         .then((data) => {
             if (Array.isArray(data)) {
                 setProducts(data);

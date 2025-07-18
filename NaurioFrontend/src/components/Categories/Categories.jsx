@@ -16,6 +16,9 @@ const items = [
 
 const Categories = () => {
   const navigate= useNavigate();
+
+
+  
   return (
     <section className="categories-section">
       <motion.h2
@@ -47,6 +50,7 @@ const Categories = () => {
           </motion.div>
         ))}
       </div>
+
     </section>
   );
 };

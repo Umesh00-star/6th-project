@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import './NauriBot.css'; // Make sure to create this or paste the CSS below in your existing NauriBot.css
+import { Link } from 'react-router-dom';
+
 
 function NauriBot() {
   const handleChatClick = () => {
@@ -17,9 +19,9 @@ function NauriBot() {
       >
         <h2>Meet NauriBot</h2>
         <p>The most responsive AI bot in Ecommerce - Here to help you shop smarter, faster!</p>
-        <button className="nauri-button" onClick={handleChatClick}>
+        <Link to="/Bot" className="nauri-button" >
           Chat with NauriBot
-        </button>
+        </Link>
       </motion.div>
     </section>
   );

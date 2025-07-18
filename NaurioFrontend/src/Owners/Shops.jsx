@@ -20,7 +20,12 @@ const Shops = () => {
   const fetchMyProducts = async () => {
     try {
       const res = await axios.get(`http://localhost:8080/api/products/user/${user.id}`);
-      setMyProducts(res.data);
+      // setMyProducts(res.data);
+      console.log("Fetched products:", res.data);
+
+      // Set based on correct shape of response
+      const products = Array.isArray(res.data) ? res.data : res.data.products || [];
+      setMyProducts(products);
     } catch (err) {
       console.error("Failed to fetch products", err);
     }
@@ -33,7 +38,8 @@ const Shops = () => {
       <ProductUpload /> {/* Only shop users will see this */}
 
       <h3>My Products</h3>
-      {myProducts.length === 0 ? (
+      {/* {myProducts.length === 0 ? ( */}
+       {!Array.isArray(myProducts) || myProducts.length === 0 ? (
         <p>No products yet.</p>
       ) : (
         <ul>

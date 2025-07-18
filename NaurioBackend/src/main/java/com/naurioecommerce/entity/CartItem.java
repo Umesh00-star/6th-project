@@ -18,6 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class CartItem {
 
     @Id
@@ -25,12 +26,12 @@ public class CartItem {
     private Long id;
 
     // ✅ Many cart items belong to one user
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     // ✅ Many cart items belong to one product
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
@@ -52,6 +53,24 @@ public int getQuantity() {
 
 public void setQuantity(int quantity) {
     this.quantity = quantity;
+}
+// ✅ Setters
+   
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Product getProduct() {
+    return product;
+}
+
+public User getUser() {
+    return user;
 }
 
 }
