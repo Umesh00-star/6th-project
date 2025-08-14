@@ -1,35 +1,68 @@
 package com.naurioecommerce.dto;
 
+import java.util.List;
+
 public class OrderRequest {
 
-    // === Fields required for order creation ===
     private Long userId;
-    private Long productId;
-    private int quantity;
-    private double totalPrice;
+    private List<ProductOrderItem> products;
+    private ProductOrderItem singleProduct;
 
-    // === Optional: Fields useful for returning data ===
-    private Long id;
-    private String orderId;
-    private String status;
-    private String orderDate;
+    // === Inner static class for product-specific info ===
+    public static class ProductOrderItem {
+        
+        private Long productId;
+        private int quantity;
+        private double totalPrice;
+        
 
-    // === Constructors ===
-    public OrderRequest() {
-    }
+        // Optional fields for returning order info (if needed)
+        // private Long orderId;
+        // private String orderStatus;
+        // private String orderDate;
 
-    public OrderRequest(Long userId, Long productId, int quantity, double totalPrice) {
-        this.userId = userId;
-        this.productId = productId;
-        this.quantity = quantity;
-        this.totalPrice = totalPrice;
-    }
+        // === Getters and Setters ===
+        public Long getProductId() {
+            return productId;
+        }
+        public void setProductId(Long productId) {
+            this.productId = productId;
+        }
 
-    public OrderRequest(Long id, String orderId, String status, String orderDate) {
-        this.id = id;
-        this.orderId = orderId;
-        this.status = status;
-        this.orderDate = orderDate;
+                public int getQuantity() {
+            return quantity;
+        }
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+
+        public double getTotalPrice() {
+            return totalPrice;
+        }
+        public void setTotalPrice(double totalPrice) {
+            this.totalPrice = totalPrice;
+        }
+
+        // public Long getOrderId() {
+        //     return orderId;
+        // }
+        // public void setOrderId(Long orderId) {
+        //     this.orderId = orderId;
+        // }
+
+        // public String getOrderStatus() {
+        //     return orderStatus;
+        // }
+        // public void setOrderStatus(String orderStatus) {
+        //     this.orderStatus = orderStatus;
+        // }
+
+        // public String getOrderDate() {
+        //     return orderDate;
+        // }
+        // public void setOrderDate(String orderDate) {
+        //     this.orderDate = orderDate;
+        // }
     }
 
     // === Getters and Setters ===
@@ -37,80 +70,30 @@ public class OrderRequest {
     public Long getUserId() {
         return userId;
     }
-
     public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public Long getProductId() {
-        return productId;
+    public List<ProductOrderItem> getProducts() {
+        return products;
+    }
+    public void setProducts(List<ProductOrderItem> products) {
+        this.products = products;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
+    public ProductOrderItem getSingleProduct() {
+                    return singleProduct;
+}
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    // === Optional: toString (helps with logging/debugging) ===
+public void setSingleProduct(ProductOrderItem singleProduct) {
+    this.singleProduct = singleProduct;
+}
 
     @Override
     public String toString() {
         return "OrderRequest{" +
                 "userId=" + userId +
-                ", productId=" + productId +
-                ", quantity=" + quantity +
-                ", totalPrice=" + totalPrice +
-                ", id=" + id +
-                ", orderId='" + orderId + '\'' +
-                ", status='" + status + '\'' +
-                ", orderDate='" + orderDate + '\'' +
+                ", products=" + products +
                 '}';
     }
 }

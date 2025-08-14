@@ -8,9 +8,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.naurioecommerce.service.CustomUserDetailsService;
+import com.naurioecommerce.service.ShopUserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.lang.NonNull;
 // import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +29,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    private ShopUserDetailsService shopUserDetailsService;
     
 
 
@@ -50,13 +55,42 @@ protected void doFilterInternal(@NonNull HttpServletRequest request,
         String token = header.substring(7);
         if (jwtTokenProvider.validateToken(token)) {
             String username = jwtTokenProvider.getUsernameFromToken(token);
-            UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
-            UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+             String userType = jwtTokenProvider.getUserTypeFromToken(token);
 
-            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
+
+
+        //     UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+        //     UsernamePasswordAuthenticationToken authentication =
+        //             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
+        //     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        //     SecurityContextHolder.getContext().setAuthentication(authentication);
+        // }
+
+         UserDetails userDetails;
+
+        // if ("shop".equalsIgnoreCase(userType)) {
+        //     userDetails = shopUserDetailsService.loadUserByUsername(username);
+        // } else {
+        //     userDetails = customUserDetailsService.loadUserByUsername(username);
+        // }
+
+        if ("shop".equalsIgnoreCase(userType)) {
+    userDetails = shopUserDetailsService.loadUserByUsername(username);
+} else if ("user".equalsIgnoreCase(userType)) {
+    userDetails = customUserDetailsService.loadUserByUsername(username);
+} else {
+    throw new UsernameNotFoundException("Invalid user type in token");
+}
+
+        UsernamePasswordAuthenticationToken authentication =
+                new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+
+        authentication.setDetails(
+                new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
     }
 
     filterChain.doFilter(request, response);

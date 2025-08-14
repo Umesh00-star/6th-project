@@ -15,11 +15,14 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByUser(User user);
 
     // Optional: If needed, filter by userId instead of full user entity
-    List<Order> findByUserId(Long userId);
+    // List<Order> findByUserId(Long userId);
 
     // Optional: Filter by user and status (e.g., for "Pending", "Cancelled")
     List<Order> findByUserAndStatus(User user, String status);
 
     // Optional: Order by date if your entity has LocalDateTime orderDate
     List<Order> findByUserOrderByOrderDateDesc(User user);
+
+    // order by the iser email
+    List<Order>findByUserEmail(User user);
 }

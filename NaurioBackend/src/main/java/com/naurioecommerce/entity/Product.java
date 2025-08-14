@@ -38,9 +38,9 @@ public class Product {
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "shop_id", nullable = false)
     @JsonIgnore
-    private User user;
+    private Shop shop;
 
     // === Getters and Setters ===
 
@@ -104,16 +104,11 @@ public class Product {
         return createdAt;
     }
 
-    public User getUser() {
-        return user;
+    public Shop getShop() {
+        return shop;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public byte[] getImage() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getImage'");
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 }

@@ -1,0 +1,72 @@
+/* General Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Form Container */
+form {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Inputs and Textareas */
+input[type="text"],
+input[type="number"],
+input[type="file"],
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease-in-out;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+/* Labels */
+input::placeholder,
+textarea::placeholder {
+  color: #888;
+}
+
+/* Button Styling */
+button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #357ABD;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  form {
+    padding: 20px;
+  }
+}
+
+/* Loading state (optional) */
+button[disabled] {
+  background-color: #a0c4f7;
+  cursor: not-allowed;
+}

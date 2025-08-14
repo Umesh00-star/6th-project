@@ -13,7 +13,7 @@ public class ProductDto {
     private LocalDateTime createdAt;
 
     // Optional: for frontend filtering by shop
-    private Long userId;
+    private Long shopId;
 
     // Getters and Setters (or use Lombok below)
     public Long getId() {
@@ -80,12 +80,12 @@ public class ProductDto {
         this.createdAt = createdAt;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getShopId() {
+        return shopId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
  
    }
 
@@ -100,7 +100,7 @@ public class ProductDto {
     dto.setCategory(product.getCategory());
     dto.setImageUrl(product.getImageUrl());
     dto.setCreatedAt(product.getCreatedAt());
-    dto.setUserId(product.getUser().getId());
+    dto.setShopId(product.getShop().getId());
     return dto;
 }
 

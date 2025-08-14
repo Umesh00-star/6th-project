@@ -36,7 +36,9 @@ const Login = () => {
       // Attempt login
       const res = await loginUser(form.email, form.password);
       if (res.success) {
+        console.log("Login success, navigating to home");
         login(res.data.user, res.data.token);
+        console.log("user login response:", res.data);
         navigate("/"); // Redirect after successful login (adjust route if needed)
       } else {
         setError(res.message);

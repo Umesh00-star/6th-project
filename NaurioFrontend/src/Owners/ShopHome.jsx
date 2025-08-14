@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../Auths/AuthLogic";
+import { useShopAuth } from "../Auths/ShopAuthLogic";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import './OwnStyle/Shophome.css';
 
 const ShopHome = () => {
-  const { user } = useAuth();
+  const { shop } = useShopAuth();
   const navigate = useNavigate();
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Fetch products for shop user
   useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    } else if (user.role === "shop") {
+    if (!shop) {
+      navigate("/shop/login");
+    } else if (shop.role === "shop") {
       fetchMyProduct();
     }
-  }, [user]);
+  }, [shop]);
 
   const fetchMyProduct = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:8080/api/product/user/${user.id}`);
+      const res = await axios.get(`http://localhost:8080/api/product/shop/${shop.id}`);
       setProduct(Array.isArray(res.data) ? res.data : []); // Prevent .map error
     } catch (err) {
       console.error("❌ Failed to fetch products:", err);
@@ -47,9 +47,9 @@ const ShopHome = () => {
     navigate(`/edit-product/${productId}`);
   };
 
-  if (!user) return <p>Loading...</p>;
+  if (!shop) return <p>Loading...</p>;
 
-  if (user.role !== "shop") {
+  if (shop.role !== "shop") {
     return <p style={{ color: "red" }}>🚫 Unauthorized: This page is only for shop users.</p>;
   }
 

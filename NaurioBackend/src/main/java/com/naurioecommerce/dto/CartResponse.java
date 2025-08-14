@@ -2,13 +2,12 @@ package com.naurioecommerce.dto;
 
 
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
  @Data
 @NoArgsConstructor
-@AllArgsConstructor
+// @AllArgsConstructor
 public class CartResponse {
 
     private Long id;             // ID of this cart response (typically the cart item ID)
@@ -21,13 +20,13 @@ public class CartResponse {
 
     // public CartResponse() {}
 
-    // public CartResponse(Long id, Long cartItemId, Long userId, ProductDto product, int quantity) {
-    //     this.id = id;
-    //     this.cartItemId = cartItemId;
-    //     this.userId = userId;
-    //     this.product = product;
-    //     this.quantity = quantity;
-    // }
+    public CartResponse(Long id, Long cartItemId, Long userId, ProductDto product, int quantity) {
+        this.id = id;
+        this.cartItemId = cartItemId;
+        this.userId = userId;
+        this.product = product;
+        this.quantity = quantity;
+    }
 
     // Getters and Setters
     public Long getId() {

@@ -1,19 +1,10 @@
 package com.naurioecommerce.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -39,17 +30,22 @@ public class User {
 
     // Role of the user: "user", "shop", or "admin"
     private String role;
+    
 
     // One-to-One relationship with Shop (only if user opens a shop)
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "shop_id", referencedColumnName = "id")
-    @JsonIgnore // Prevents recursion when serializing
-    private Shop shop;
-
+    // @OneToOne(cascade = CascadeType.ALL)
+    // @JoinColumn(name = "shop_id", referencedColumnName = "id")
+    // @JsonIgnore // Prevents recursion when serializing
+    // private Shop shop;
     // One-to-Many relationship: One user (shop) can upload many products
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore // Prevents infinite recursion during JSON serialization
-    private List<Product> products = new ArrayList<>();
+    // // private Admin admin;
+    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    // @JsonIgnore // Prevents infinite recursion during JSON serialization
+    // private List<Product> products;
+
+    // public User() {
+    //     this.products = new ArrayList<>();
+    // }
 
     // --- Getters and Setters ---
 
@@ -89,17 +85,17 @@ public class User {
         return role;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
 
-    public Shop getShop() {
-        return shop;
-    }
 
-    public void setShop(Shop shop) {
-        this.shop = shop;
-    }
+    // public Shop getShop() {
+    //     return shop;
+    // }
+
+    // public void setShop(Shop shop2) {
+    //     this.shop = shop2;
+    // }
+
+   
 
     public String getPhone() {
         return phone;
@@ -109,11 +105,17 @@ public class User {
         this.phone = phone;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
+    // public List<Product> getProducts() {
+    //     return products;
+    // }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-}
+    // public void setProducts(List<Product> products) {
+    //     this.products = products;
+    // }
+
+    // public void setRole(String role2) {
+       
+    //     throw new UnsupportedOperationException("Unimplemented method 'setRole'");
+    // }
+
+ }

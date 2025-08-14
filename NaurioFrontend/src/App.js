@@ -32,6 +32,7 @@ import ShopHome from './Owners/ShopHome';
 
 // Auth hook to get user info
 import { useAuth } from './Auths/AuthLogic';
+import { useShopAuth } from './Auths/ShopAuthLogic';
 
 // orders related
 import BuyNowPage from './Orders/BuyNow';
@@ -39,12 +40,15 @@ import OrderConfirmation from './Orders/OrderConfirm';
 import OrdersPage from './Orders/OrderPage';
 import Shopnow from './ShowProduct/Shopnow';
 import Contact from './components/Contactus/Contact';
-import bot from './components/NauriBot/Bot';
+import Bot from './components/NauriBot/Bot';
+import CheckoutPage from './ShowProduct/CheckOut';
+// import Logins from './Shops/Logins';
+// import Admin from './Admin/Login/Login';
 
 
 function App() {
   const { user } = useAuth();
-
+// const {shop} = useShopAuth();
   return (
     <>
       <NavBar />
@@ -54,9 +58,9 @@ function App() {
         <Route
           path="/"
           element={
-            user && user.role === "shop" ? (
-               <ShopHome />          // Shop user sees shop dashboard
-          ): (  
+          //   user && user.role === "user" ? (
+          //      <ShopHome />          // Shop user sees shop dashboard
+          // ): (  
                   <>
                     {/* Non-shop user homepage content */}
                     <Hero />
@@ -66,13 +70,15 @@ function App() {
                     <ComingSoonSection />
                     <Footer />
                   </>
-                )
+                // )
               // : <Navigate to="/" /> // Redirect unauthenticated users to login
           }
         />
 
         {/* Authentication */}
         <Route path="/login" element={<Login />} />
+        {/* <Route Path="/shop/login" element={<Logins />} /> */}
+        {/* <Route Path="/admin" element={<Admin/>}/> */}
 
         {/* Profile routes */}
         <Route path="/Settings" element={<Settings />} />
@@ -87,24 +93,31 @@ function App() {
         <Route path="/print" element={<PrintDemand />} />
 
         {/* Shop owner routes */}
-        <Route path="/product" element={<ProductUpload />} />
-        <Route path="/shops" element={<Shops />} />
-        <Route path="/edit-product/:id" element={<EditProduct />} />
+        {/* <Route path="/product" element={<ProductUpload />} />
+        {/* <Route path="/shops" element={<Shops />} /> 
+        {/* <Route path="/edit-product/:id" element={<EditProduct />} /> */} 
         <Route path='/cart' element={<Cart/>}/>
+        <Route path="/shop" element={<Shops />} />
 
         {/* Fallback route for unmatched paths (optional) */}
         <Route path="*" element={<Navigate to="/" replace />} />
 
          {/* Orders related */}
           <Route path="/buy-now" element={<BuyNowPage />} />
-        <Route path="/confirm-order" element={<OrderConfirmation />} />
+          <Route path="/Checkout" element={<CheckoutPage />} />
+        {/* <Route path="/confirm-order" element={<OrderConfirmation />} /> */}
+        <Route path="/order-confirmation" element={<OrderConfirmation />} />
           <Route path="/orders" element={<OrdersPage />} />
           <Route path="/shop-now" element={<Shopnow/>}></Route>
            <Route path="/contact" element={<Contact/>}></Route>
-           <Route path="/Bot" element={<bot/>}></Route>
+           <Route path="/Bot" element={<Bot/>}></Route>
       </Routes>
     </>
   );
-}
 
+
+}
 export default App;
+
+
+

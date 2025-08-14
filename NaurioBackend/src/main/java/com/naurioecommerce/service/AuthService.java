@@ -1,5 +1,6 @@
 package com.naurioecommerce.service;
 
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,7 +24,7 @@ public class AuthService {
     private final UserRepository userRepository;
 
     // @Autowired
-    public AuthService(AuthenticationManager authenticationManager,
+    public AuthService (AuthenticationManager authenticationManager,
                        JwtTokenProvider jwtTokenProvider,
                        PasswordEncoder passwordEncoder,
                        UserRepository userRepository) {
@@ -38,7 +39,7 @@ public class AuthService {
         new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
     );
 
-    String token = jwtTokenProvider.generateToken(authentication);
+    String token = jwtTokenProvider.generateToken(authentication, "user");
 
     User user = userRepository.findByEmail(request.getEmail())
                   .orElseThrow(() -> new RuntimeException("User not found"));
@@ -59,7 +60,7 @@ public class AuthService {
         user.setFullName(request.getFullName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-         user.setRole("user"); // default role
+        //  user.setRole("user"); // default role
 
 
         userRepository.save(user);
@@ -68,7 +69,7 @@ public class AuthService {
             new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
 
-        String token = jwtTokenProvider.generateToken(authentication);
+        String token = jwtTokenProvider.generateToken(authentication, "user");
 
         
         UserDto userDto = new UserDto(

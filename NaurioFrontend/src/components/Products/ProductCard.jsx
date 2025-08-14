@@ -27,7 +27,8 @@ const ProductCard = ({ product }) => {
             }
 
             sessionStorage.setItem("guestCart", JSON.stringify(existingCart));
-            alert("Product added to guest cart");
+            // alert(" Please login to Add Product added to guest cart");
+            alert("Please! Login First");
         }
     }
 

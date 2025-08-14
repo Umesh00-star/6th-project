@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.naurioecommerce.entity.Shop;
 import com.naurioecommerce.entity.User;
 import com.naurioecommerce.repository.UserRepository;
 
@@ -25,6 +24,11 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    
+    // @Autowired
+    // private Role Role;
+
 
     // ✅ Get user by ID
     @GetMapping("/{id}")
@@ -47,18 +51,18 @@ public class UserController {
                 existingUser.setFullName(updatedUser.getFullName());
                 existingUser.setEmail(updatedUser.getEmail());
                 existingUser.setPhone(updatedUser.getPhone());
-                existingUser.setRole(updatedUser.getRole());
+                // existingUser.setRole(updatedUser.getRole());
 
                 // Handle shop role
-                if ("shop".equalsIgnoreCase(updatedUser.getRole()) && updatedUser.getShop() != null) {
-                    if (existingUser.getShop() == null) {
-                        existingUser.setShop(new Shop());
-                    }
-                    existingUser.getShop().setName(updatedUser.getShop().getName());
-                    existingUser.getShop().setDescription(updatedUser.getShop().getDescription());
-                } else {
-                    existingUser.setShop(null);  // Clear shop if role is not 'shop'
-                }
+                // if ("shop".equalsIgnoreCase(updatedUser.getRole()) && updatedUser.getShop() != null) {
+                //     if (existingUser.getShop() == null) {
+                //         existingUser.setShop(new Shop());
+                //     }
+                //     existingUser.getShop().setName(updatedUser.getShop().getName());
+                //     existingUser.getShop().setDescription(updatedUser.getShop().getDescription());
+                // } else {
+                //     existingUser.setShop(null);  // Clear shop if role is not 'shop'
+                // }
 
                 // Save and return updated user
                 userRepository.save(existingUser);

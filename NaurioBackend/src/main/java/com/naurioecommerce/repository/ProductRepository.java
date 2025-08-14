@@ -31,7 +31,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     /**
      * Get all products uploaded by a specific user.
      */
-    List<Product> findByUserId(Long userId);
+    List<Product> findByShopId(Long shopId);
 
     /**
      * Optional: Get latest N products (if needed for homepage or pagination)

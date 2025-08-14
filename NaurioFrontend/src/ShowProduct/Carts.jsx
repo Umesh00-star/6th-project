@@ -4,6 +4,7 @@ import { useAuth } from "../Auths/AuthLogic";
 import { useNavigate } from "react-router-dom";
 import './ShowStyle/Carts.css';
 
+
 const Cart = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -80,7 +81,7 @@ const Cart = () => {
     }
 
     localStorage.setItem("checkout_items", JSON.stringify(itemsToOrder));
-    navigate("/buy-now", { state: { items: itemsToOrder } });
+    navigate("/Checkout", { state: { items: itemsToOrder } });
   };
 
   const totalPrice = cart

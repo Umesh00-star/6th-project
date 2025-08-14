@@ -4,6 +4,7 @@ public class RegisterRequest {
     private String fullName;
     private String email;
     private String password;
+    
 
     // Getters & Setters
     public String getFullName() {
@@ -12,6 +13,9 @@ public class RegisterRequest {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
+
+
+
     public String getEmail() {
         return email;
     }

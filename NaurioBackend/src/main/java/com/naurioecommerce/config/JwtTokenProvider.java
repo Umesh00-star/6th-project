@@ -1,13 +1,19 @@
 package com.naurioecommerce.config;
 
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
+import java.security.Key;
+import java.util.Date;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import java.security.Key;
-import java.util.Date;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+
 
 @Component
 public class JwtTokenProvider {
@@ -24,13 +30,15 @@ public class JwtTokenProvider {
     }
 
     // ✅ Generate JWT from Authentication
-    public String generateToken(Authentication authentication) {
+    public String generateToken(Authentication authentication, String userType) {
         String username = authentication.getName(); // gets email or username
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationMs);
 
         return Jwts.builder()
+                    .setClaims(Map.of("role", userType)) // store whether it's user or shop
                 .setSubject(username)
+                  
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(key, SignatureAlgorithm.HS256)
@@ -46,6 +54,19 @@ public class JwtTokenProvider {
                 .getBody()
                 .getSubject();
     }
+
+
+        public String getUserTypeFromToken(String token) {
+        return (String) Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("role");
+    }
+
+
+
 
     // ✅ Validate JWT
     public boolean validateToken(String token) {

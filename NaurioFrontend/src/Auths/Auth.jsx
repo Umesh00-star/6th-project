@@ -114,6 +114,7 @@ export const updateUserProfile = async (id, updateData) => {
         Authorization: `Bearer ${token}`,
       },
     });
+  
 
     // Optionally update local user data
     localStorage.setItem("user", JSON.stringify(res.data));
@@ -126,3 +127,6 @@ export const updateUserProfile = async (id, updateData) => {
     };
   }
 };
+
+
+

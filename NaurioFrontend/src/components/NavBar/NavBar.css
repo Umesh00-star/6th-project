@@ -1,6 +1,6 @@
 .navbar {
   width: 100vw;
-  background:#1856dd; 
+  background:#0f1930; 
   color: #e6e1de;
   padding: 15px 40px;
   box-sizing: border-box;
@@ -19,6 +19,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  
 }
 
 .logo-circle {
@@ -36,6 +37,7 @@
 .logo-circle img {
   height: 100%;
   width: auto;
+  cursor: pointer;
 }
 
 .navbar-title {
@@ -46,6 +48,7 @@
   align-items: center;
   user-select: none;
   gap: 5px;
+   cursor: pointer;
 }
 
 .multi-color:nth-child(1) { color: #4285F4; } /* N - Blue */
@@ -68,6 +71,7 @@
   gap: 30px;
   margin: 0;
   padding: 0;
+  align-items: center;
 }
 
 .navbar-menu li a {
@@ -153,16 +157,19 @@
 }
 
 .dropdown {
-   position: absolute;
-  top: 100%;
+ display: none;
+  position: absolute;
   right: 0;
-  background: white;
-  color: black;
-  padding: 10px;
+  background-color: white;
   border: 1px solid #ccc;
-  z-index: 999;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  z-index: 1000;
   min-width: 150px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile_menu:hover .dropdown {
+  display: block;
 }
 
 .dropdown ul {
@@ -172,7 +179,18 @@
 }
 
 .dropdown li {
-  margin: 8px 0;
+  margin: 0.5rem 0;
+}
+
+
+.dropdown ul li a,
+.dropdown ul li button {
+  text-decoration: none;
+  color: black;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
 .dropdown button,
@@ -191,23 +209,25 @@
 .dropdown button:hover,
 .setting:hover {
   background: orangered;
+  text-align: center;
 }
- /* .dropdown p {
-    margin: 5px 0;
-     } */
-
- /* .dropdown button {
-        width: 100%;
-        margin-top: 5px;
-        padding: 6px;
-        background-color: blue;
-        border: none;
-        cursor: pointer;
-         } */
 
 
-/* 
-* {
-  outline: 1px solid rgba(255,0,0,0.5) !important; 
-  /* Helps visualize element bounds */
-/* } */ 
+.dropdown button,
+.logout {
+  width: 100%;
+  padding: 8px;
+  background: #004d4d;
+  color: white;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+.dropdown button:hover,
+.logout:hover {
+  background: orangered;
+  text-align: center;
+}
+

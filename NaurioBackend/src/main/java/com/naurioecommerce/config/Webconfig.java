@@ -29,6 +29,10 @@ public class Webconfig implements WebMvcConfigurer {
                 .addResourceLocations(frontendPath)
                 .setCachePeriod(0); // Disable caching (for development)
    
+                  registry.addResourceHandler("/shop")
+                .addResourceLocations(frontendPath)
+                .setCachePeriod(0); // Disable caching (for development)
+   
    
     // Map uploaded product images
     registry.addResourceHandler("/api/product/images/**")

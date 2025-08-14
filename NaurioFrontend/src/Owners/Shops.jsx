@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../Auths/AuthLogic";
+import { useShopAuth } from "../Auths/ShopAuthLogic";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ProductUpload from "../components/Products/ProductUpload";
 
 const Shops = () => {
-  const { user } = useAuth();
+  const { shop } = useShopAuth();
   const navigate = useNavigate();
   const [myProducts, setMyProducts] = useState([]);
 
   useEffect(() => {
-    if (!user || user.role !== "shop") {
-      navigate("/login"); // Redirect non-shop users
+    if (!shop || shop.role !== "shop") {
+      navigate("/shop/login"); // Redirect non-shop users
     } else {
       fetchMyProducts();
     }
-  }, [user]);
+  }, [shop]);
 
   const fetchMyProducts = async () => {
     try {
-      const res = await axios.get(`http://localhost:8080/api/products/user/${user.id}`);
+      const res = await axios.get(`http://localhost:8080/api/products/shop/${shop.id}`);
       // setMyProducts(res.data);
       console.log("Fetched products:", res.data);
 

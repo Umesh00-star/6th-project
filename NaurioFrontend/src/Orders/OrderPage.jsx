@@ -5,6 +5,10 @@ const OrdersPage = () => {
   const [selectedOrderIds, setSelectedOrderIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [filterStatus, setFilterStatus]= useState("Placed");
+  const filteredOrders = orders.filter((order) => order.status === filterStatus);
+  
+
 
   const fetchOrders = async () => {
     const token = localStorage.getItem("token");
@@ -36,7 +40,7 @@ const OrdersPage = () => {
         data.map(async (order) => {
           try {
             const imgRes = await fetch(
-              `http://localhost:8080/api/products/${order.product.id}/image`,
+              `http://localhost:8080/api/product/${order.product.id}/images`,
               {
                 headers: { Authorization: `Bearer ${token}` },
               }
@@ -47,7 +51,7 @@ const OrdersPage = () => {
             const blob = await imgRes.blob();
             const imageUrl = URL.createObjectURL(blob);
 
-            return { ...order, productImageUrl: imageUrl };
+            return { ...order, productImageUrl: ImageUrl };
           } catch {
             return { ...order, productImageUrl: "/placeholder.png" };
           }
@@ -115,72 +119,130 @@ const OrdersPage = () => {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
   if (orders.length === 0) return <p>No orders found.</p>;
 
-  return (
-    <div style={{ padding: "2rem" }}>
-      <h2 style={{ marginBottom: "1.5rem" }}>Your Orders</h2>
 
-      {orders.map((order) => (
-        <div
-          key={order.id}
+    // FIlter Logics
+
+    const filteredOrdered = orders.filter((order) => order.status=== filterStatus);
+
+    // filter buttons
+
+    const statusOptions = [
+      {value : "Placed", label: "Placed"},
+      {value : "Completed", label: "Received "},
+      {value : "Cancelled", label: "Cancelled/Return"},
+    ];
+
+    const visibleButtons = statusOptions.filter((s) => s.value !==filterStatus);
+
+    if(loading ) return <p>Loading Orders...</p>;
+     if (error) return <p style={{ color: "red" }}>{error}</p>;
+
+
+  return (
+
+
+  
+  
+
+ <div style={{ padding: "2rem" }}>
+      <h2 style={{ marginBottom: "1rem" }}>
+        {statusOptions.find((s) => s.value === filterStatus)?.label} Orders
+      </h2>
+
+      {/* Filter Buttons */}
+      <div style={{ marginBottom: "1rem" }}>
+        {visibleButtons.map(({ value, label }) => (
+          <button
+            key={value}
+            onClick={() => setFilterStatus(value)}
+            style={{
+              marginRight: "0.5rem",
+              padding: "0.5rem 1rem",
+              backgroundColor: "#007bff",
+              color: "#fff",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {filteredOrders.length === 0 ? (
+        <p>No {filterStatus.toLowerCase()} orders found.</p>
+      ) : (
+        filteredOrders.map((order) => (
+          <div
+            key={order.id}
+            style={{
+              borderBottom: "1px solid #ddd",
+              marginBottom: "1.5rem",
+              paddingBottom: "1rem",
+              display: "flex",
+              alignItems: "flex-start",
+            }}
+          >
+            {filterStatus === "Placed" && (
+              <input
+                type="checkbox"
+                checked={selectedOrderIds.includes(order.id)}
+                onChange={() => handleCheckboxChange(order.id)}
+                style={{ marginRight: "1rem", marginTop: "0.5rem" }}
+              />
+            )}
+
+            <img
+              src={order.product.imageUrl}
+              alt={order.product.name}
+              style={{
+                width: "100px",
+                height: "100px",
+                objectFit: "cover",
+                borderRadius: "8px",
+                marginRight: "1rem",
+                border: "1px solid #ccc",
+              }}
+            />
+
+            <div>
+              <h3 style={{ margin: 0 }}>{order.product.name}</h3>
+              <p>Price:{order.price}</p>
+              <p>Quantity: {order.quantity}</p>
+              <p>Total Price: ${order.totalPrice?.toFixed(2)}</p>
+              <p>Status: {order.status}</p>
+              <p>
+                Order Date:{" "}
+                {order.orderDate
+                  ? new Date(order.orderDate).toLocaleString()
+                  : "N/A"}
+              </p>
+            </div>
+          </div>
+        ))
+      )}
+
+      {filterStatus === "Placed" && (
+        <button
+          onClick={handleCancel}
+          disabled={selectedOrderIds.length === 0}
           style={{
-            borderBottom: "1px solid #ddd",
-            marginBottom: "1.5rem",
-            paddingBottom: "1rem",
-            display: "flex",
-            alignItems: "flex-start",
+            padding: "0.5rem 1rem",
+            backgroundColor: selectedOrderIds.length ? "#dc3545" : "#ccc",
+            color: "#fff",
+            border: "none",
+            borderRadius: "4px",
+            cursor: selectedOrderIds.length ? "pointer" : "not-allowed",
           }}
         >
-          <input
-            type="checkbox"
-            checked={selectedOrderIds.includes(order.id)}
-            onChange={() => handleCheckboxChange(order.id)}
-            style={{ marginRight: "1rem", marginTop: "0.5rem" }}
-          />
-
-          <img
-            src={order.productImageUrl}
-            alt={order.product.name}
-            style={{
-              width: "100px",
-              height: "100px",
-              objectFit: "cover",
-              borderRadius: "8px",
-              marginRight: "1rem",
-              border: "1px solid #ccc",
-            }}
-          />
-
-          <div>
-            <h3 style={{ margin: 0 }}>{order.product.name}</h3>
-            <p>Quantity: {order.quantity}</p>
-            <p>Total Price: ${order.totalPrice?.toFixed(2)}</p>
-            <p>Status: {order.status}</p>
-            <p>
-              Order Date:{" "}
-              {order.orderDate
-                ? new Date(order.orderDate).toLocaleString()
-                : "N/A"}
-            </p>
-          </div>
-        </div>
-      ))}
-
-      <button
-        onClick={handleCancel}
-        disabled={selectedOrderIds.length === 0}
-        style={{
-          padding: "0.5rem 1rem",
-          backgroundColor: selectedOrderIds.length ? "#dc3545" : "#ccc",
-          color: "#fff",
-          border: "none",
-          borderRadius: "4px",
-          cursor: selectedOrderIds.length ? "pointer" : "not-allowed",
-        }}
-      >
-        Cancel Selected {selectedOrderIds.length > 1 ? "Orders" : "Order"}
-      </button>
+          Cancel Selected {selectedOrderIds.length > 1 ? "Orders" : "Order"}
+        </button>
+      )}
     </div>
   );
+
+
 };
 
 export default OrdersPage;

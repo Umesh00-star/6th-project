@@ -1,6 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+const DELIVERY_CHARGE = 100;
+
+const OrderItem = ({ item }) => {
+  const [imgSrc, setImgSrc] = useState(
+    item.product?.imageUrl || `/api/product/${item.product?.id}/image`
+  );
+  const quantity = item.quantity || 1;
+  const price = typeof item.product?.price === "number" ? item.product.price : parseFloat(item.product?.price) || 0;
+  const itemTotal = price * quantity;
+
+  return (
+    <div style={styles.card}>
+      <img
+        src={imgSrc}
+        alt={item.product?.name || "Product"}
+        width={180}
+        style={styles.image}
+        onError={() => setImgSrc("/default-product.jpg")}
+        loading="lazy"
+      />
+      <div style={styles.details}>
+        <h3>{item.product?.name}</h3>
+        <p>Quantity: {quantity}</p>
+        <p>Price per item: ${price.toFixed(2)}</p>
+        <p><strong>Item Total: ${itemTotal.toFixed(2)}</strong></p>
+      </div>
+    </div>
+  );
+};
+
 const ConfirmOrderPage = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -12,9 +42,18 @@ const ConfirmOrderPage = () => {
     }
   }, [state, navigate]);
 
-  const { items = [], totalCost = 0 } = state || {};
-  const product = items[0] || {};
-  const quantity = product.quantity || 1;
+  const { items = [] } = state || {};
+
+  // Calculate subtotal here by summing up price * quantity for all items
+  const subtotal = items.reduce((sum, item) => {
+    const price = typeof item.product?.price === "number"
+      ? item.product.price
+      : parseFloat(item.product?.price) || 0;
+    const quantity = item.quantity || 1;
+    return sum + price * quantity;
+  }, 0);
+
+  const finalTotal = subtotal + DELIVERY_CHARGE;
 
   const handleConfirm = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -25,16 +64,33 @@ const ConfirmOrderPage = () => {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/api/orders/my-orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userId: user.id,
-          productId: product.id,
-          quantity,
-          totalPrice: totalCost,
-        }),
-      });
+      const response = await 
+      // fetch("http://localhost:8080/api/orders", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({
+      //     userId: user.id,
+      //     items: items.map(({ product, quantity }) => ({
+      //       productId: product.id,
+      //       quantity,
+      //       price: product.price,
+      //     })),
+      //     totalPrice: finalTotal,
+      //   }),
+      // });
+      fetch("http://localhost:8080/api/orders", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    userId: user.id,
+    products: items.map(({ product, quantity }) => ({
+      productId: product.id,
+      quantity,
+      totalPrice: product.price * quantity,
+    }))
+  })
+});
+
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -55,37 +111,28 @@ const ConfirmOrderPage = () => {
     <div style={styles.container}>
       <h2 style={styles.title}>Confirm Your Order</h2>
 
-      <div style={styles.card}>
-        <img
-          src={product.imageUrl || `/api/products/${product.id}/image`}
-          alt={product.name || "Product"}
-          width={180}
-          style={styles.image}
-          onError={(e) => (e.target.src = "/default-product.jpg")}
-          loading="lazy"
-        />
-        <div style={styles.details}>
-          <h3>{product.name}</h3>
-          <p>Quantity: {quantity}</p>
-          <p>Total Price: <strong>${totalCost.toFixed(2)}</strong></p>
-        </div>
+      {items.map((item) => (
+        <OrderItem key={item.id || item.product?.id} item={item} />
+      ))}
+
+      <div style={styles.summary}>
+        <p>Subtotal: ${subtotal.toFixed(2)}</p>
+        <p>Delivery Charges: ${DELIVERY_CHARGE.toFixed(2)}</p>
+        <h3>Final Total: ${finalTotal.toFixed(2)}</h3>
       </div>
 
-      <button
-        style={styles.button}
-        onClick={handleConfirm}
-        disabled={loading}
-      >
+      <button style={styles.button} onClick={handleConfirm} disabled={loading}>
         {loading ? "Processing..." : "✅ Confirm Order"}
       </button>
     </div>
   );
 };
 
+
 const styles = {
   container: {
     padding: "2rem",
-    maxWidth: "600px",
+    maxWidth: "700px",
     margin: "auto",
     textAlign: "center",
   },
@@ -106,9 +153,18 @@ const styles = {
   image: {
     borderRadius: "6px",
     objectFit: "cover",
+    maxHeight: "140px",
   },
   details: {
     textAlign: "left",
+  },
+  summary: {
+    marginTop: "2rem",
+    textAlign: "left",
+    borderTop: "1px solid #ccc",
+    paddingTop: "1rem",
+    fontSize: "1.1rem",
+    lineHeight: "1.8rem",
   },
   button: {
     padding: "0.75rem 1.5rem",
@@ -119,6 +175,7 @@ const styles = {
     borderRadius: "5px",
     cursor: "pointer",
     transition: "background-color 0.2s ease",
+    marginTop: "1.5rem",
   },
 };
 

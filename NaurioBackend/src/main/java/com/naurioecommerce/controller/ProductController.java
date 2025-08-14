@@ -31,9 +31,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.naurioecommerce.dto.ProductDto;
 import com.naurioecommerce.entity.Product;
-import com.naurioecommerce.entity.User;
+import com.naurioecommerce.entity.Shop;
 import com.naurioecommerce.repository.ProductRepository;
-import com.naurioecommerce.repository.UserRepository;
+import com.naurioecommerce.repository.ShopRepository;
 import com.naurioecommerce.service.FileStorageService;
 import com.naurioecommerce.service.FileStorageService.FileInfo;
 
@@ -48,7 +48,7 @@ public class ProductController {
     private String imageBaseUrl;
 
     @Autowired private ProductRepository productRepo;
-    @Autowired private UserRepository userRepo;
+    @Autowired private ShopRepository shopRepo;
     @Autowired private FileStorageService fileService;
 
     @PostMapping
@@ -59,13 +59,13 @@ public class ProductController {
         @RequestParam double weight,
         @RequestParam String category,
         @RequestParam("image") MultipartFile image,
-        @RequestParam Long userId
+        @RequestParam Long shopId
     ) {
         if (image.isEmpty()) return bad("Image file is required.");
         if (price <= 0 || weight <= 0) return bad("Price and weight must be positive.");
 
-        Optional<User> userOpt = userRepo.findById(userId);
-        if (userOpt.isEmpty()) return bad("Invalid user ID.");
+        Optional<Shop> shopOpt = shopRepo.findById(shopId);
+        if (shopOpt.isEmpty()) return bad("Invalid user ID.");
 
         try {
             FileInfo fileInfo = fileService.storeFile(image);
@@ -73,7 +73,7 @@ public class ProductController {
             Product product = new Product();
             applyFromForm(product, name, description, price, weight, category);
             product.setImageUrl(fileInfo.imageUrl);
-            product.setUser(userOpt.get());
+            product.setShop(shopOpt.get());
             productRepo.save(product);
 
             return ResponseEntity.ok(Map.of(
@@ -81,9 +81,9 @@ public class ProductController {
                 "product", ProductDto.fromEntity(product)
             ));
         } catch (IOException ex) {
-            logger.error("Image storage failed", ex);
+            logger.error("Product creation failed", ex);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                 .body(Map.of("error", "Failed to save image: " + ex.getMessage()));
+                                 .body(Map.of("error", "internal error: " + ex.getMessage()));
         }
     }
 
@@ -105,6 +105,7 @@ public class ProductController {
         } catch (IOException ex) {
             logger.error("Serving image failed", ex);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
         }
     }
 
@@ -137,12 +138,12 @@ if (optProduct.isPresent()) {
         return ResponseEntity.ok(dtos);
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getByUser(@PathVariable Long userId) {
-        if (userRepo.findById(userId).isEmpty())
+    @GetMapping("/shop/{shopId}")
+    public ResponseEntity<?> getByShop(@PathVariable Long shopId) {
+        if (shopRepo.findById(shopId).isEmpty())
             return bad(Collections.emptyList());
 
-        List<ProductDto> dtos = productRepo.findByUserId(userId)
+        List<ProductDto> dtos = productRepo.findByShopId(shopId)
                                            .stream()
                                            .map(ProductDto::fromEntity)
                                            .collect(Collectors.toList());
@@ -157,7 +158,7 @@ if (optProduct.isPresent()) {
         @RequestParam double price,
         @RequestParam double weight,
         @RequestParam String category,
-        @RequestParam(value = "image", required = false) MultipartFile image
+        @RequestParam(value = "imageurl", required = false) MultipartFile image
     ) {
         var opt = productRepo.findById(id);
         if (opt.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND)

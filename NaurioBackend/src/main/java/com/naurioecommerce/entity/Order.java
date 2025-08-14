@@ -26,6 +26,7 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
+    // //  @JsonIgnoreProperties({"password", "email", "orders", "role"}) 
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -51,7 +52,9 @@ public class Order {
         this.orderDate = LocalDateTime.now();
     }
 
-    public Order(User user, Product product, int quantity, double totalPrice) {
+    public Order(
+        User user,
+         Product product, int quantity, double totalPrice) {
         this.user = user;
         this.product = product;
         this.quantity = quantity;
