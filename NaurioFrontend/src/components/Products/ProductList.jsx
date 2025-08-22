@@ -8,7 +8,7 @@ function ProductList () {
 
 
     useEffect (() => {
-        axios.get("http://localhost:8080/api.products")
+        axios.get("http://localhost:8080/api/products")
         .then(res => setProducts(res.data))
         .catch(err => console.error("Error fetching products:", err));
     }, []);

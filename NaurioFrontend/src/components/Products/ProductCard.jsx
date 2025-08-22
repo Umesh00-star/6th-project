@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../Auths/AuthLogic";
+import { useAuth } from "../../Authentication/AuthLogic";
 
 const ProductCard = ({ product }) => {
     const navigate = useNavigate();
@@ -37,7 +37,7 @@ const ProductCard = ({ product }) => {
     };
 
     return (
-        <div className="product-card">
+        <Link to={`/product/${product.id}`} className="product-card">
             <img
                 src={product.imageUrl}
                 alt={product.name}
@@ -47,14 +47,13 @@ const ProductCard = ({ product }) => {
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <p><strong>${product.price}</strong></p>
+            <p className="text-sm text-gray-500">Shop: {product.shopName}</p>
 
             <div className="product-actions">
                 <button onClick={handleAddToCart}>Add to Cart</button>
                 <button onClick={handleBuyNow}>Buy Now</button>
             </div>
-
-            <Link to={`/product/${product.id}`}>View</Link>
-        </div>
+        </Link>
     );
 };
 

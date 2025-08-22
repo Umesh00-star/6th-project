@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useShopAuth } from "../Auths/ShopAuthLogic";
+import { useShopAuth } from "../Authentication/ShopAuthLogic";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ProductUpload from "../components/Products/ProductUpload";

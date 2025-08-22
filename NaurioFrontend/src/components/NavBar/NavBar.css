@@ -214,6 +214,25 @@
 
 
 .dropdown button,
+.order {
+  width: 100%;
+  padding: 8px;
+  background: #004d4d;
+  color: white;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown button:hover,
+.order:hover {
+  background: orangered;
+  text-align: center;
+}
+
+.dropdown button,
 .logout {
   width: 100%;
   padding: 8px;

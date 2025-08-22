@@ -21,6 +21,7 @@ import KitchenProduct from './ShowProduct/KitchenProduct';
 import CommercialProduct from './ShowProduct/CommercialProduct';
 import PrintDemand from './ShowProduct/PrintDemand';
 import Cart from './ShowProduct/Carts';
+import ProductDetail from './components/Products/ProductDetail';
 
 // Shop owner components
 import ProductUpload from './components/Products/ProductUpload';
@@ -31,8 +32,8 @@ import EditProduct from './Owners/EditProduct';
 import ShopHome from './Owners/ShopHome'; 
 
 // Auth hook to get user info
-import { useAuth } from './Auths/AuthLogic';
-import { useShopAuth } from './Auths/ShopAuthLogic';
+import { useAuth } from './Authentication/AuthLogic';
+import { useShopAuth } from './Authentication/ShopAuthLogic';
 
 // orders related
 import BuyNowPage from './Orders/BuyNow';
@@ -111,6 +112,7 @@ function App() {
           <Route path="/shop-now" element={<Shopnow/>}></Route>
            <Route path="/contact" element={<Contact/>}></Route>
            <Route path="/Bot" element={<Bot/>}></Route>
+           <Route path="/product/:id" element={<ProductDetail />} />
       </Routes>
     </>
   );

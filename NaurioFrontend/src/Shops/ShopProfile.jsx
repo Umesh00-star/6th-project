@@ -1,41 +1,36 @@
 import React, { useEffect } from "react";
-import { useAuth } from "../../Authentication/AuthLogic";
+import { useAuth } from "../../Authentication/ShopAuthLogic";
 import { useNavigate } from "react-router-dom";
-import './ProfileStyle/Profile.css';
+// import './ProfileStyle/Profile.css';
 
-const Profile = () => {
-    const { user, logout } = useAuth();
+const ShopProfile = () => {
+    const { shop, logout } = useShopAuth();
     const navigate = useNavigate();
 
     const handleLogout = () => {
         logout();
     };
-    const OrdersPage = () => {
-        navigate("/orders");
-    };
 
     // Redirect to home if user logs out
     useEffect(() => {
-        if (!user) {
+        if (!shop) {
             navigate('/');
         }
-    }, [user, navigate]);
+    }, [shop, navigate]);
 
     const goToSettings = () => {
         navigate("/settings");
     };
-     
 
     return (
         <div className="profile-container" style={{ padding: '2rem' }}>
-            <h2>{user?.name || 'User'}</h2>
+            <h2>{shop?.name || 'shop'}</h2>
             <ul style={{ listStyle: 'none', padding: 0 }}>
                 <li><button onClick={goToSettings}>Settings</button></li>
-                <li><button onClick={OrdersPage}>Order</button></li>
                 <li><button onClick={handleLogout}>Logout</button></li>
             </ul>
         </div>
     );
 };
 
-export default Profile;
+export default ShopProfile;

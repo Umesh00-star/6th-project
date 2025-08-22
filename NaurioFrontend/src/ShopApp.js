@@ -8,7 +8,7 @@ import ProductUpload from "./components/Products/ProductUpload";
 import Shops from "./Owners/Shops";
 import EditProduct from "./Owners/EditProduct";
 import ShopHome from "./Owners/ShopHome";
-import { useShopAuth } from "./Auths/ShopAuthLogic";
+import { useShopAuth } from "./Authentication/ShopAuthLogic";
 import ShopLogins from "./Shops/ShopLogins";
 import Contact from "./components/Contactus/Contact";
 import Bot from "./components/NauriBot/Bot";

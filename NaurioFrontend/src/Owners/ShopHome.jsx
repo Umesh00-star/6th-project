@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useShopAuth } from "../Auths/ShopAuthLogic";
+import { useShopAuth } from "../Authentication/ShopAuthLogic";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import './OwnStyle/Shophome.css';
@@ -44,7 +44,7 @@ const ShopHome = () => {
   };
 
   const handleEdit = (productId) => {
-    navigate(`/edit-product/${productId}`);
+    navigate(`/shop/edit-product/${productId}`);
   };
 
   if (!shop) return <p>Loading...</p>;

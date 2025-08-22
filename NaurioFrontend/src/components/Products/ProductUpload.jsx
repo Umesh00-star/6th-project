@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useShopAuth } from "../../Auths/ShopAuthLogic";
+import { useShopAuth } from "../../Authentication/ShopAuthLogic";
 import './ProductStyle/Upload.css';
 
 function ProductUpload() {

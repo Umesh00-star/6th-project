@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useAuth } from "../../Auths/AuthLogic";
+import { useAuth } from "../../Authentication/AuthLogic";
 import { useNavigate } from "react-router-dom";
-import { getUserProfile, updateUserProfile } from "../../Auths/Auth";
+import { getUserProfile, updateUserProfile } from "../../Authentication/Auth";
 import Shops from "../../Owners/Shops";
 import './ProfileStyle/Update.css';
 

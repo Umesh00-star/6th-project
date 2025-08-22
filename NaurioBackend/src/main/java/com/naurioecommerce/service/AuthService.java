@@ -60,7 +60,7 @@ public class AuthService {
         user.setFullName(request.getFullName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        //  user.setRole("user"); // default role
+         user.setRole("user"); // default role
 
 
         userRepository.save(user);

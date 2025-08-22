@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { loginShop, registerShop } from "../Auths/ShopAuth";
+import { loginShop, registerShop } from "../Authentication/ShopAuth";
 import { useNavigate } from "react-router-dom";
-import { useShopAuth } from "../Auths/ShopAuthLogic";
+import { useShopAuth } from "../Authentication/ShopAuthLogic";
 
 import "../img/logo.png";
 // import "./style.css";

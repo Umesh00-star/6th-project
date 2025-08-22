@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../Auths/AuthLogic";
+import { useAuth } from "../../Authentication/AuthLogic";
 import UpdateProfile from "./UpdateProfile";
 
 const Settings = () => {

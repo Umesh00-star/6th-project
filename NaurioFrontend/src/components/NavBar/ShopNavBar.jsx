@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useShopAuth } from "../../Auths/ShopAuthLogic";
+import { useShopAuth } from "../../Authentication/ShopAuthLogic";
 import ProductUpload from "../Products/ProductUpload";
 
 const ShopNavBar = () => {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { loginUser, registerUser } from "../Auths/Auth";
+import { loginUser, registerUser } from "../Authentication/Auth";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../Auths/AuthLogic";
+import { useAuth } from "../Authentication/AuthLogic";
 import "../img/logo.png";
 import "./style.css";
 

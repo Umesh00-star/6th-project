@@ -29,7 +29,7 @@ public class User {
     private String phone;
 
     // Role of the user: "user", "shop", or "admin"
-    private String role;
+private String Role;
     
 
     // One-to-One relationship with Shop (only if user opens a shop)
@@ -81,9 +81,6 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
 
 
 
@@ -95,7 +92,13 @@ public class User {
     //     this.shop = shop2;
     // }
 
-   
+    public String getRole(){
+        return Role;
+    }
+
+    public void setRole(String role) {
+        this.Role = role;
+    }
 
     public String getPhone() {
         return phone;

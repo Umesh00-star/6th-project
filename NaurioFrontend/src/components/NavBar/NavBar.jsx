@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import logo from '../../img/logo.png';
 import './NavBar.css';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../Auths/AuthLogic';
+import { useAuth } from '../../Authentication/AuthLogic';
 import axios from "axios";
 import cartlogo from '../../img/cart-logo.png';
 import profilelogo from '../../img/profile-logo.png';
@@ -70,7 +70,7 @@ function NavBar() {
         <li><Link to="/categories">Categories</Link></li>
         <li><Link to="/age-filter">Shop by Age</Link></li>
         <li><Link to="/contact">Contact</Link></li>
-        <li><Link to="/orders">Orders</Link></li>
+        {/* <li><Link to="/orders">Orders</Link></li> */}
 
         {/* Cart */}
         <li className="cart-icon">
@@ -102,6 +102,12 @@ function NavBar() {
                   <Link to="/settings" className="setting">
                     Settings
                   </Link>
+                    </li>
+                  <li>
+                  <Link to="/orders" className="order" >
+                    Order
+                  </Link>
+              
                 </li>
                 <li>
                   <Link to="/" className="logout" onClick={handleLogout}>

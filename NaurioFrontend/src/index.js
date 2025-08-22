@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import ShopApp from './ShopApp';
-import { AuthProvider } from './Auths/AuthLogic';
-import {ShopAuthProvider} from './Auths/ShopAuthLogic';
+import { AuthProvider } from './Authentication/AuthLogic';
+import {ShopAuthProvider} from './Authentication/ShopAuthLogic';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 fetch('http://localhost:8080/api/product')

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useAuth } from "../Auths/AuthLogic";
+import { useAuth } from "../Authentication/AuthLogic";
 import { useNavigate } from "react-router-dom";
 import './ShowStyle/Carts.css';
 
