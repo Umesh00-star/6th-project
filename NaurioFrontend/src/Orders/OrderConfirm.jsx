@@ -24,8 +24,8 @@ const OrderItem = ({ item }) => {
       <div style={styles.details}>
         <h3>{item.product?.name}</h3>
         <p>Quantity: {quantity}</p>
-        <p>Price per item: ${price.toFixed(2)}</p>
-        <p><strong>Item Total: ${itemTotal.toFixed(2)}</strong></p>
+        <p>Price per item: Rs. {price.toFixed(2)}</p>
+        <p><strong>Item Total: Rs.{itemTotal.toFixed(2)}</strong></p>
       </div>
     </div>
   );
@@ -116,9 +116,9 @@ const ConfirmOrderPage = () => {
       ))}
 
       <div style={styles.summary}>
-        <p>Subtotal: ${subtotal.toFixed(2)}</p>
-        <p>Delivery Charges: ${DELIVERY_CHARGE.toFixed(2)}</p>
-        <h3>Final Total: ${finalTotal.toFixed(2)}</h3>
+        <p>Subtotal: Rs. {subtotal.toFixed(2)}</p>
+        <p>Delivery Charges: Rs. {DELIVERY_CHARGE.toFixed(2)}</p>
+        <h3>Final Total: Rs. {finalTotal.toFixed(2)}</h3>
       </div>
 
       <button style={styles.button} onClick={handleConfirm} disabled={loading}>

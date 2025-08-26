@@ -29,6 +29,8 @@ D:\NaurioEmpire\NaurioBackend\src\main\java\com\naurioecommerce\entity\Product.j
 D:\NaurioEmpire\NaurioBackend\src\main\java\com\naurioecommerce\entity\Role.java
 D:\NaurioEmpire\NaurioBackend\src\main\java\com\naurioecommerce\entity\Shop.java
 D:\NaurioEmpire\NaurioBackend\src\main\java\com\naurioecommerce\entity\User.java
+D:\NaurioEmpire\NaurioBackend\src\main\java\com\naurioecommerce\Mappers\ShopMapper.java
+D:\NaurioEmpire\NaurioBackend\src\main\java\com\naurioecommerce\Mappers\UserMapper.java
 D:\NaurioEmpire\NaurioBackend\src\main\java\com\naurioecommerce\NaurioEcommerceApplication.java
 D:\NaurioEmpire\NaurioBackend\src\main\java\com\naurioecommerce\repository\CartRepository.java
 D:\NaurioEmpire\NaurioBackend\src\main\java\com\naurioecommerce\repository\OrderRepository.java

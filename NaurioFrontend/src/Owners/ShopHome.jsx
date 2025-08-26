@@ -76,7 +76,7 @@ const ShopHome = () => {
             />
             <div className="product-info">
               <strong>{product.name}</strong>
-              <p>${product.price.toFixed(2)}</p>
+              <p>Rs. {product.price.toFixed(2)}</p>
               <em>{product.category}</em>
             </div>
             <div className="product-buttons">

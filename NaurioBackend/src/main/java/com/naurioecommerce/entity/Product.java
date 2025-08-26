@@ -92,11 +92,11 @@ public class Product {
         this.category = category;
     }
 
-    public String getImageUrl() {
+    public String getimageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setimageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 

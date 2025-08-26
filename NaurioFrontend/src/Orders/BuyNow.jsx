@@ -55,7 +55,7 @@ const BuyNowPage = () => {
       />
       <h3>{product.name}</h3>
       <p>{product.description}</p>
-      <p>Price: ${parseFloat(product.price).toFixed(2)}</p>
+      <p>Price: Rs. {parseFloat(product.price).toFixed(2)}</p>
       <label>
         Quantity:
         <input
@@ -66,9 +66,9 @@ const BuyNowPage = () => {
           style={{ width: "60px", marginLeft: "0.5rem" }}
         />
       </label>
-      <p>Delivery: ${deliveryCharge.toFixed(2)}</p>
+      <p>Delivery: Rs. {deliveryCharge.toFixed(2)}</p>
       <hr />
-      <p><strong>Total: ${totalCost.toFixed(2)}</strong></p>
+      <p><strong>Total: Rs. {totalCost.toFixed(2)}</strong></p>
       <button onClick={handlePlaceOrder}>Place Order</button>
     </div>
   );

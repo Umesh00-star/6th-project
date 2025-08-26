@@ -1,0 +1,177 @@
+/* Load Poppins font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+.loading {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  color: #555;
+  text-align: center;
+}
+
+/* Container with card-style shadow */
+.orders-container {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 2rem auto;
+  background-color: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+}
+
+.orders-heading {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.error {
+  color: #dc3545;
+  font-weight: 500;
+}
+
+/* FILTER BUTTONS */
+.filter-buttons {
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Base filter button style */
+.filter-btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 15px;
+  background-color: #f2f2f2;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* PLACED (Yellow theme) */
+.filter-btn.placed {
+  background-color: #fff8dc;
+}
+
+.filter-btn.placed:hover {
+  background-color: lightskyblue;
+  color: #000;
+}
+
+.filter-btn.placed.active {
+  background-color: navy;
+  color: white;
+}
+
+/* DELIVERED (Green theme) */
+.filter-btn.delivered {
+  background-color: #e0f8e9;
+}
+
+.filter-btn.delivered:hover {
+  background-color: #5ec46e;
+  color: white;
+}
+
+.filter-btn.delivered.active {
+  background-color: #28a745;
+  color: white;
+}
+
+/* CANCELLED (Red theme) */
+.filter-btn.cancelled {
+  background-color: #ffe2e6;
+}
+
+.filter-btn.cancelled:hover {
+  background-color: #f57373;
+  color: white;
+}
+
+.filter-btn.cancelled.active {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Select All */
+.select-all {
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+/* ORDER CARD STYLE */
+.order-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  border: 1px solid #eee;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  background-color: #fff;
+  transition: transform 0.2s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+}
+
+.order-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.order-checkbox {
+  margin-top: 0.5rem;
+}
+
+/* CANCEL BUTTON */
+.cancel-btn {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #ccc;
+  color: white;
+  font-weight: 500;
+  cursor: not-allowed;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn.active {
+  background-color: #dc3545;
+  cursor: pointer;
+}
+
+/* NOTIFICATION STYLES */
+.notification {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+
+.notification.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.notification.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}

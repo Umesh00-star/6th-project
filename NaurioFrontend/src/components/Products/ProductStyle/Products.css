@@ -1,0 +1,118 @@
+
+/* Load Poppins font */
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap'); */
+
+
+.product-card {
+    font-family: "Orbitron", "Segoe UI", sans-serif;
+
+    background-color:white ;
+    border-radius: 14px;
+    box-shadow: 0 6px 15px rgba(0,0,0,1);
+    padding:1.2rem 1rem 1.5rem;
+    max-width: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+}
+
+.product-card:hover {
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+
+product-link {
+    color: inherit;
+    text-decoration: none;
+    flex-grow: 1;
+    }
+
+    .image-wrapper {
+        width: 100%;
+        height: 160px;
+        overflow: hidden;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        background: #f9f9f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .image-wrapper img {
+        width: auto;
+        height: 100%;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+    }
+
+    .product-card:hover .image-wrapper img 
+{
+    transform: scale(1.08);
+}
+
+.produtc-name {
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin: 0 0 0.6rem;
+    color: #222;
+    min-height: 48px; /*fixed consistent height*/
+}
+
+.product-price {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #555;
+  margin: 0 0 1.2rem;
+}
+
+.product-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.add-btn {
+  background: linear-gradient(90deg, #00d8ff 0%, #005f99 100%);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.55rem 1.5rem;
+  border-radius: 25px;
+  box-shadow: 0 5px 15px rgba(0, 216, 255, 0.4);
+  cursor: pointer;
+  /* transition: background 0.3s ease, box-shadow 0.3s ease; */
+  /* user-select: none; */
+  width: 100%;
+  max-width: 200px;
+}
+
+.add-btn:hover {
+  background: linear-gradient(90deg, #007fbf 0%, #003f5c 100%);
+  box-shadow: 0 7px 20px rgba(0, 127, 191, 0.6);
+  transform: translateY(-2px);
+}
+
+.add-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 10px rgba(0, 127, 191, 0.3);
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .product-card {
+    max-width: 100%;
+    padding: 1rem;
+  }
+  .image-wrapper {
+    height: 140px;
+  }
+  .product-name {
+    font-size: 1rem;
+  }
+  .add-btn {
+    padding: 0.5rem 1rem;
+  }
+}

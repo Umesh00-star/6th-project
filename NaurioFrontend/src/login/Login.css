@@ -1,0 +1,158 @@
+/* style.css */
+
+/* Import Poppins font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9fafb;
+  margin: 0;
+  padding: 0;
+}
+
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #e5e7eb;
+  padding: 20px;
+}
+
+.form-side {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  max-width: 100%;
+}
+
+/* Form title */
+form h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Input Group */
+.input-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+/* Input Fields */
+.input {
+  width: 100%;
+  padding: 14px 12px;
+  font-size: 16px;
+  border: 1.8px solid #d1d5db;
+  border-radius: 6px;
+  background: transparent;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+/* Focus border */
+.input:focus {
+  border-color: #2563eb;
+}
+
+/* Placeholder trick for floating label */
+.input::placeholder {
+  color: transparent;
+}
+
+/* Floating label */
+.input-label {
+  position: absolute;
+  left: 12px;
+  top: 14px;
+  color: #6b7280;
+  font-size: 16px;
+  pointer-events: none;
+  transition: all 0.25s ease;
+  background-color: #fff;
+  padding: 0 4px;
+}
+
+/* Move label up when input focused or has text */
+.input:focus + .input-label,
+.input:not(:placeholder-shown) + .input-label {
+  top: -8px;
+  left: 8px;
+  font-size: 12px;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+/* Password wrapper for input + button */
+.password-wrapper {
+  position: relative;
+}
+
+/* Toggle password button */
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  user-select: none;
+}
+
+/* Submit button */
+.btn {
+  width: 100%;
+  background-color: #2563eb;
+  color: white;
+  font-size: 16px;
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #1d4ed8;
+}
+
+/* Toggle form text */
+.toggle-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.toggle-link {
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.toggle-link:focus,
+.toggle-link:hover {
+  outline: none;
+  color: #1d4ed8;
+}
+
+/* Error message */
+.error-message {
+  color: #dc2626;
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+}

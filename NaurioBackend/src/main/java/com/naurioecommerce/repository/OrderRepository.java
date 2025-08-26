@@ -25,4 +25,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     // order by the iser email
     List<Order>findByUserEmail(User user);
+
+    List<Order> findByOrderIdIn(List<String> orderIds);
+
 }

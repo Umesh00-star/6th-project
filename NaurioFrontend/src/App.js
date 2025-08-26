@@ -12,6 +12,7 @@ import AboutUs from './components/AboutUs/AboutUs';
 
 import NavBar from './components/NavBar/NavBar';
 import Login from './login/Login';
+// import Login from './login/log';
 import Settings from './components/Profiles/Settings';
 import UpdateProfile from './components/Profiles/UpdateProfile';
 

@@ -64,11 +64,11 @@ public class ProductDto {
         this.category = category;
     }
 
-    public String getImageUrl() {
+    public String getimageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setimageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
@@ -98,7 +98,7 @@ public class ProductDto {
     dto.setPrice(product.getPrice());
     dto.setWeight(product.getWeight());
     dto.setCategory(product.getCategory());
-    dto.setImageUrl(product.getImageUrl());
+    dto.setimageUrl(product.getimageUrl());
     dto.setCreatedAt(product.getCreatedAt());
     dto.setShopId(product.getShop().getId());
     return dto;

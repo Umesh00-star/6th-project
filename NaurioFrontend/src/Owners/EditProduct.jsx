@@ -55,7 +55,7 @@ const EditProduct = () => {
       <h2>Edit Product</h2>
       <input name="name" value={product.name} onChange={handleChange} placeholder="Product Name" required />
 <textarea name="description" value={product.description} onChange={handleChange} placeholder="Description" required />
-<input type="number" name="price" value={product.price} onChange={handleChange} placeholder="Price ($)" required />
+<input type="number" name="price" value={product.price} onChange={handleChange} placeholder="Price (Rs.)" required />
 <input type="number" name="weight" value={product.weight} onChange={handleChange} placeholder="Weight (kg)" required />
 <input name="category" value={product.category} onChange={handleChange} placeholder="Category" required />
 <input type="file" name="image" onChange={handleChange} />

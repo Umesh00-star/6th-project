@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.naurioecommerce.Mappers.ShopMapper;
+import com.naurioecommerce.dto.ShopDto;
 import com.naurioecommerce.entity.Shop;
 import com.naurioecommerce.repository.ShopRepository;
 
@@ -36,6 +38,13 @@ public class ShopUserController {
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
     }
+
+//       @GetMapping("/{id}")
+// public ResponseEntity<ShopDto> getShopById(@PathVariable Long id) {
+//     return shopRepository.findById(id)
+//         .map(shop -> ResponseEntity.ok(ShopMapper.toDTO(shop)))
+//         .orElse(ResponseEntity.notFound().build());
+// }
     
 
     // ✅ Update user profile (including role/shop)

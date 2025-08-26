@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
+.kitchen-section {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 1rem 2rem 4rem;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #fff6e5 0%, #fbe7c6 100%);
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  color: #3e2723;
+  min-height: 80vh;
+}
+
+.kitchen-title {
+  font-weight: 700;
+  font-size: 2.6rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #8d6e63;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Grid layout for product cards */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.6rem;
+}
+
+/* Animated product wrapper */
+.product-motion-wrapper {
+  cursor: pointer;
+  border-radius: 12px;
+  transition: box-shadow 0.3s ease;
+  background: white;
+  padding: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.product-motion-wrapper:hover {
+  box-shadow: 0 8px 20px rgba(141, 110, 99, 0.3);
+}
+
+/* Message for no products */
+.no-products-msg {
+  grid-column: 1 / -1;
+  font-size: 1.4rem;
+  color: #795548;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* Pagination styles */
+.pagination {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.page-btn {
+  background-color: #fff3e0;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #5d4037;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.page-btn:hover {
+  background-color: #ffe0b2;
+  color: #3e2723;
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4);
+}
+
+.page-btn.active {
+  background-color: #ff9800;
+  color: white;
+  cursor: default;
+  transform: scale(1.1);
+  box-shadow: 0 8px 18px rgba(255, 152, 0, 0.6);
+}
+
+/* Loading state */
+.loading {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.8rem;
+  color: #8d6e63;
+  text-align: center;
+  padding: 5rem 0;
+}
+
+
+
+/* Back Button */
+.back-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.back-button {
+  background-color: #ffcc80;
+  color: #4e342e;
+  font-weight: 600;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #ffa726;
+  color: #fff;
+  transform: scale(1.05);
+}

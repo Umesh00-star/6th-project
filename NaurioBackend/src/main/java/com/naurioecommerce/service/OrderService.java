@@ -96,11 +96,15 @@ public class OrderService {
     productDto.setname(product.getName());
     productDto.setdescription(product.getDescription());
     productDto.setprice(product.getPrice());
-    productDto.setimageUrl(product.getImageUrl());
+    productDto.setimageUrl(product.getimageUrl());
 
     dto.setproduct(productDto);
     return dto;
 }
+
+    public void cancelOrdersByIds(List<Long> orderIds) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 
    

@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
+import './OrdersUI/OrderPage.css';
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
   const [selectedOrderIds, setSelectedOrderIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [filterStatus, setFilterStatus]= useState("Placed");
-  const filteredOrders = orders.filter((order) => order.status === filterStatus);
-  
+  const [filterStatus, setFilterStatus] = useState("Placed");
+  const [cancelling, setCancelling] = useState(false);
+  const [message, setMessage] = useState({type: "", text: ""})
 
+  const token = localStorage.getItem("token");
 
   const fetchOrders = async () => {
-    const token = localStorage.getItem("token");
+    setLoading(true);
+    setError("");
 
     if (!token) {
       setError("You must be logged in to view orders.");
@@ -27,12 +30,9 @@ const OrdersPage = () => {
         },
       });
 
-      if (res.status === 401) {
-        setError("Session expired. Please log in again.");
-        return;
+      if (!res.ok) {
+        throw new Error("Failed to fetch orders");
       }
-
-      if (!res.ok) throw new Error("Failed to fetch orders.");
 
       const data = await res.json();
 
@@ -51,7 +51,7 @@ const OrdersPage = () => {
             const blob = await imgRes.blob();
             const imageUrl = URL.createObjectURL(blob);
 
-            return { ...order, productImageUrl: ImageUrl };
+            return { ...order, productImageUrl: imageUrl };
           } catch {
             return { ...order, productImageUrl: "/placeholder.png" };
           }
@@ -59,10 +59,9 @@ const OrdersPage = () => {
       );
 
       setOrders(ordersWithImages);
-    } 
-    catch (err) {
-      console.error("Fetch error:", err);
-      setError(err.message || "Something went wrong.");
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong while loading orders.");
     } finally {
       setLoading(false);
     }
@@ -72,12 +71,24 @@ const OrdersPage = () => {
     fetchOrders();
   }, []);
 
+  const filteredOrders = orders.filter(
+    (order) => order.status === filterStatus
+  );
+
   const handleCheckboxChange = (orderId) => {
-    setSelectedOrderIds((prevIds) =>
-      prevIds.includes(orderId)
-        ? prevIds.filter((id) => id !== orderId)
-        : [...prevIds, orderId]
+    setSelectedOrderIds((prev) =>
+      prev.includes(orderId)
+        ? prev.filter((id) => id !== orderId)
+        : [...prev, orderId]
     );
+  };
+
+  const handleSelectAll = () => {
+    if (selectedOrderIds.length === filteredOrders.length) {
+      setSelectedOrderIds([]);
+    } else {
+      setSelectedOrderIds(filteredOrders.map((order) => order.orderId));
+    }
   };
 
   const handleCancel = async () => {
@@ -88,129 +99,114 @@ const OrdersPage = () => {
     );
     if (!confirmed) return;
 
-    const token = localStorage.getItem("token");
-
     try {
-      for (const orderId of selectedOrderIds) {
-        const res = await fetch(
-          `http://localhost:8080/api/orders/${orderId}`,
-          {
-            method: "DELETE",
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+      setCancelling(true);
 
-        if (!res.ok) {
-          const msg = await res.text();
-          alert(`❌ Failed to cancel order ID ${orderId}: ${msg}`);
-        }
+      const res = await fetch(`http://localhost:8080/api/orders/cancel`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(selectedOrderIds),
+      });
+
+      if (!res.ok) {
+        // const msg = await res.text();
+        setMessage({ type: "error", text: "❌ Failed to cancel orders." });
+         setTimeout(() => setMessage({ type: "", text: "" }), 4000);
+        return;
       }
 
-      setOrders((prev) => prev.filter((o) => !selectedOrderIds.includes(o.id)));
+      await fetchOrders();
       setSelectedOrderIds([]);
-      alert("✅ Selected order(s) cancelled.");
+      setMessage({ type: "success", text: "✅ Orders cancelled successfully." });
+       setTimeout(() => setMessage({ type: "", text: "" }), 4000);
     } catch (err) {
       console.error("Cancel error:", err);
-      alert("⚠️ Error occurred while cancelling orders.");
+     setMessage({ type: "error", text: "⚠️ Error occurred while cancelling orders." });
+     setTimeout(() => setMessage({ type: "", text: "" }), 4000);
+    } finally {
+      setCancelling(false);
     }
   };
 
+  const statusOptions = [
+    { value: "Placed", label: "Placed" },
+    { value: "Delivered", label: "Received" },
+    { value: "Cancelled", label: "Cancelled / Returned" },
+  ];
+
   if (loading) return <p>Loading orders...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (orders.length === 0) return <p>No orders found.</p>;
-
-
-    // FIlter Logics
-
-    const filteredOrdered = orders.filter((order) => order.status=== filterStatus);
-
-    // filter buttons
-
-    const statusOptions = [
-      {value : "Placed", label: "Placed"},
-      {value : "Completed", label: "Received "},
-      {value : "Cancelled", label: "Cancelled/Return"},
-    ];
-
-    const visibleButtons = statusOptions.filter((s) => s.value !==filterStatus);
-
-    if(loading ) return <p>Loading Orders...</p>;
-     if (error) return <p style={{ color: "red" }}>{error}</p>;
-
+  if (error) return <p className="error">{error}</p>;
 
   return (
-
-
-  
-  
-
- <div style={{ padding: "2rem" }}>
-      <h2 style={{ marginBottom: "1rem" }}>
+    <div className="orders-container">
+      <h2 className="orders-heading">
         {statusOptions.find((s) => s.value === filterStatus)?.label} Orders
       </h2>
 
-      {/* Filter Buttons */}
-      <div style={{ marginBottom: "1rem" }}>
-        {visibleButtons.map(({ value, label }) => (
+      <div className="filter-buttons">
+        {statusOptions.map(({ value, label }) => (
           <button
             key={value}
-            onClick={() => setFilterStatus(value)}
-            style={{
-              marginRight: "0.5rem",
-              padding: "0.5rem 1rem",
-              backgroundColor: "#007bff",
-              color: "#fff",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
+            onClick={() => {
+              setFilterStatus(value);
+              setSelectedOrderIds([]);
             }}
+            className={`filter-btn ${value.toLowerCase()} ${
+              filterStatus === value ? "active" : ""
+            }`}
           >
             {label}
           </button>
         ))}
       </div>
 
+      {filterStatus === "Placed" && filteredOrders.length > 0 && (
+        <div className="select-all">
+          <label>
+            <input
+              type="checkbox"
+              checked={
+                selectedOrderIds.length === filteredOrders.length &&
+                filteredOrders.length > 0
+              }
+              onChange={handleSelectAll}
+            />
+            Select All
+          </label>
+        </div>
+      )}
+
       {filteredOrders.length === 0 ? (
-        <p>No {filterStatus.toLowerCase()} orders found.</p>
+        <p>No Orders Has Been {filterStatus.toLowerCase()}.</p>
       ) : (
         filteredOrders.map((order) => (
-          <div
-            key={order.id}
-            style={{
-              borderBottom: "1px solid #ddd",
-              marginBottom: "1.5rem",
-              paddingBottom: "1rem",
-              display: "flex",
-              alignItems: "flex-start",
-            }}
-          >
+          <div key={order.orderId} className="order-card">
             {filterStatus === "Placed" && (
               <input
                 type="checkbox"
-                checked={selectedOrderIds.includes(order.id)}
-                onChange={() => handleCheckboxChange(order.id)}
-                style={{ marginRight: "1rem", marginTop: "0.5rem" }}
+                checked={selectedOrderIds.includes(order.orderId)}
+                onChange={() => handleCheckboxChange(order.orderId)}
+                className="order-checkbox"
               />
             )}
 
             <img
               src={order.product.imageUrl}
               alt={order.product.name}
-              style={{
-                width: "100px",
-                height: "100px",
-                objectFit: "cover",
-                borderRadius: "8px",
-                marginRight: "1rem",
-                border: "1px solid #ccc",
+              onError={(e) => {
+                e.target.src = "/placeholder.png";
               }}
+              className="order-image"
             />
 
             <div>
-              <h3 style={{ margin: 0 }}>{order.product.name}</h3>
-              <p>Price:{order.price}</p>
+              <h3>{order.product.name}</h3>
               <p>Quantity: {order.quantity}</p>
-              <p>Total Price: ${order.totalPrice?.toFixed(2)}</p>
+              <p>Price: Rs. {order.price}</p>
+              <p>Total: Rs. {order.totalPrice?.toFixed(2)}</p>
               <p>Status: {order.status}</p>
               <p>
                 Order Date:{" "}
@@ -223,26 +219,34 @@ const OrdersPage = () => {
         ))
       )}
 
-      {filterStatus === "Placed" && (
+      {filterStatus === "Placed" && filteredOrders.length > 0 && (
+        <>
         <button
           onClick={handleCancel}
-          disabled={selectedOrderIds.length === 0}
-          style={{
-            padding: "0.5rem 1rem",
-            backgroundColor: selectedOrderIds.length ? "#dc3545" : "#ccc",
-            color: "#fff",
-            border: "none",
-            borderRadius: "4px",
-            cursor: selectedOrderIds.length ? "pointer" : "not-allowed",
-          }}
+          disabled={selectedOrderIds.length === 0 || cancelling}
+          className={`cancel-btn ${
+            selectedOrderIds.length && !cancelling ? "active" : ""
+          }`}
         >
-          Cancel Selected {selectedOrderIds.length > 1 ? "Orders" : "Order"}
+          {cancelling
+            ? "Cancelling..."
+            : `Cancel Selected ${
+                selectedOrderIds.length > 1 ? "Orders" : "Order"
+              }`}
         </button>
+        
+            {message.text && (
+              <div className={`notification ${message.type}`}>
+                {message.text}
+              </div>
+            )}
+          </>
+
       )}
+      
+      
     </div>
   );
-
-
 };
 
 export default OrdersPage;

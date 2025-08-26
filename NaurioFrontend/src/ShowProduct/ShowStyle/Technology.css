@@ -1,0 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
+.tech-section {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 1rem 2rem 4rem;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  color: #e0e0e0;
+  min-height: 80vh;
+}
+
+.tech-title {
+  font-weight: 700;
+  font-size: 2.6rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #00d8ff;
+  text-shadow: 1px 1px 6px rgba(0, 216, 255, 0.4);
+}
+
+/* Back Button */
+.back-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.back-button {
+  background-color: #00d8ff;
+  color: #0f2027;
+  font-weight: 600;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  box-shadow: 0 3px 8px rgba(0, 216, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #00bcd4;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Product Grid */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.6rem;
+}
+
+/* Card Animation Wrapper */
+.product-motion-wrapper {
+  cursor: pointer;
+  border-radius: 12px;
+  transition: box-shadow 0.3s ease;
+  background: #ffffff;
+  padding: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0, 216, 255, 0.1);
+}
+
+.product-motion-wrapper:hover {
+  box-shadow: 0 8px 25px rgba(0, 216, 255, 0.4);
+}
+
+/* No products message */
+.no-products-msg {
+  grid-column: 1 / -1;
+  font-size: 1.4rem;
+  color: #9e9e9e;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.page-btn {
+  background-color: #ffffff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2c5364;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.page-btn:hover {
+  background-color: #00d8ff;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+.page-btn.active {
+  background-color: #00bcd4;
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px rgba(0, 216, 255, 0.5);
+}
+
+/* Loading */
+.loading {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.8rem;
+  color: #ffffff;
+  text-align: center;
+  padding: 5rem 0;
+}

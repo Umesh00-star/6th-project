@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -153,7 +154,7 @@ public ResponseEntity<List<OrderResponse>> getMyOrders(@AuthenticationPrincipal 
 
      
 
-    @DeleteMapping("/{orderId}")
+    @DeleteMapping("cancel")
     public ResponseEntity<?> cancelOrder(@PathVariable Long orderId) {
         Order order = orderRepository.findById(orderId).orElse(null);
         if (order == null) {
@@ -165,6 +166,37 @@ public ResponseEntity<List<OrderResponse>> getMyOrders(@AuthenticationPrincipal 
         return ResponseEntity.ok("Order cancelled successfully");
     }
 
+
+@PutMapping("/cancel")
+public ResponseEntity<?> cancelMultipleOrdersByUuid(@RequestBody List<String> orderUuids) {
+    System.out.println("Received UUIDs: " + orderUuids);
+
+    if (orderUuids == null || orderUuids.isEmpty()) {
+        return ResponseEntity.badRequest().body("No order UUIDs provided");
+    }
+
+    List<Order> orders = orderRepository.findByOrderIdIn(orderUuids);
+
+    if (orders.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No matching orders found");
+    }
+
+    for (Order order : orders) {
+        if (!"Cancelled".equalsIgnoreCase(order.getStatus())) {
+            order.setStatus("Cancelled");
+        }
+    }
+
+    List<Order> updatedOrders = orderRepository.saveAll(orders);
+    return ResponseEntity.ok(updatedOrders);
+}
+
+
+// @PutMapping("/cancel")
+// public ResponseEntity<?> cancelOrders(@RequestBody List<Long> orderIds) {
+//     orderService.cancelOrdersByIds(orderIds);
+//     return ResponseEntity.ok("Cancelled successfully");
+// }
 
 
 

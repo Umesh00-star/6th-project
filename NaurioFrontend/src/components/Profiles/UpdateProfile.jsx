@@ -105,34 +105,12 @@ if (res.success) {
           placeholder="Phone"
           required
         />
-
-        <br />
-
-        <label>
-          <input
-            type="checkbox"
-            checked={isSeller}
-            onChange={(e) => setIsSeller(e.target.checked)}
-          />
-          I want to open a shop
-        </label>
-
-        {isSeller && (
-          <>
-            <input
-              value={shopName}
-              onChange={(e) => setShopName(e.target.value)}
-              placeholder="Shop Name"
-              required
-            />
-            <textarea
-              value={shopDesc}
-              onChange={(e) => setShopDesc(e.target.value)}
-              placeholder="Shop Description"
-              required
-            />
-          </>
-        )}
+         {/* <input
+          value={name}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="Address"
+          required
+        /> */}
 
         <button type="submit">Update</button>
       </form>

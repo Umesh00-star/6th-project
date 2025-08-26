@@ -87,7 +87,7 @@ const CheckoutPage = () => {
                   <h2 className="text-lg font-semibold">{item.product.name}</h2>
                   <p className="text-sm text-gray-600">{item.product.description}</p>
                   <p className="text-md font-medium mt-1 text-pink-700">
-                    Price: ${item.product.price.toFixed(2)}
+                    Price: Rs. {item.product.price.toFixed(2)}
                   </p>
 
                   <div className="mt-3 flex items-center gap-4">
@@ -110,13 +110,13 @@ const CheckoutPage = () => {
           {/* Breakdown Summary */}
           <div className="text-right mt-6 space-y-2 mr-5">
             <p className="text-md">
-              Subtotal: <span className="font-medium">${productSubtotal.toFixed(2)}</span>
+              Subtotal: <span className="font-medium">Rs. {productSubtotal.toFixed(2)}</span>
             </p>
             <p className="text-md">
-              Delivery Charges: <span className="font-medium">${DELIVERY_CHARGES.toFixed(2)}</span>
+              Delivery Charges: <span className="font-medium">Rs. {DELIVERY_CHARGES.toFixed(2)}</span>
             </p>
             <p className="text-lg font-bold">
-              Total: <span className="text-blue-700">${totalWithDelivery.toFixed(2)}</span>
+              Total: <span className="text-blue-700">Rs. {totalWithDelivery.toFixed(2)}</span>
             </p>
           </div>
 

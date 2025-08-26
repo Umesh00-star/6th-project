@@ -8,6 +8,7 @@ import { AuthProvider } from './Authentication/AuthLogic';
 import {ShopAuthProvider} from './Authentication/ShopAuthLogic';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+
 fetch('http://localhost:8080/api/product')
 .then(res =>res.json())
 .then(data => console.log(data))

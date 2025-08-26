@@ -72,7 +72,7 @@ public class ProductController {
 
             Product product = new Product();
             applyFromForm(product, name, description, price, weight, category);
-            product.setImageUrl(fileInfo.imageUrl);
+            product.setimageUrl(fileInfo.imageUrl);
             product.setShop(shopOpt.get());
             productRepo.save(product);
 
@@ -173,7 +173,7 @@ if (optProduct.isPresent()) {
         if (image != null && !image.isEmpty()) {
             try {
                 FileInfo fileInfo = fileService.storeFile(image);
-                product.setImageUrl(fileInfo.imageUrl);
+                product.setimageUrl(fileInfo.imageUrl);
             } catch (IOException ex) {
                 logger.error("Updating image failed", ex);
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -36,20 +36,32 @@ const Login = () => {
       // Attempt login
       const res = await loginUser(form.email, form.password);
       if (res.success) {
-        console.log("Login success, navigating to home");
+        
         login(res.data.user, res.data.token);
-        console.log("user login response:", res.data);
+        
         navigate("/"); // Redirect after successful login (adjust route if needed)
-      } else {
-        setError(res.message);
       }
-    } else {
+      
+      else {
+        // setError(res.message);
+        if (
+            res.message?.toLowerCase().includes("invalid") ||
+            res.message?.toLowerCase().includes("credentials")
+          ) {
+            setError("Invalid email or password.");
+          } else {
+            setError(res.message || "Login failed. Please try again.");
+          }
+        }
+  }
+    
+    else {
       // Attempt registration
       const res = await registerUser(form.name, form.email, form.password);
       if (res.success) {
         setIsLogin(true); // Switch to login form after successful registration
       } else {
-        setError(res.message);
+        setError(res.message || "Registration failed. Please try again.");
       }
     }
   };
@@ -108,28 +120,44 @@ const Login = () => {
   </button>
 </div>
 
+            {/* error messages */}
+          {error && (
+            <p className="error-message" style={{ color: "red", marginTop: "10px" }}>
+              {error}
+            </p>
+          )}
 
-          {/* Submit button */}
+
+          {/* Submit buttons */}
           <button className="btn" type="submit">
             {isLogin ? "Login" : "Register"}
           </button>
 
-          {/* Display error message */}
-          {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+         
 
           {/* Toggle between login and registration forms */}
           <p className="toggle-text">
             {isLogin ? (
               <>
                 Don't have an account?{" "}
-                <span className="toggle-link" onClick={() => setIsLogin(false)} role="button" tabIndex={0} onKeyPress={() => setIsLogin(false)}>
+                <span className="toggle-link" 
+                onClick={() => setIsLogin(false)}
+                 role="button" 
+                 tabIndex={0}
+                  onKeyPress={() => setIsLogin(false)}>
+
                   Sign up
                 </span>
               </>
             ) : (
               <>
                 Already have an account?{" "}
-                <span className="toggle-link" onClick={() => setIsLogin(true)} role="button" tabIndex={0} onKeyPress={() => setIsLogin(true)}>
+                <span className="toggle-link" 
+                onClick={() => setIsLogin(true)}
+                 role="button" 
+                 tabIndex={0} 
+                 onKeyPress={() => setIsLogin(true)}>
+                  
                   Login
                 </span>
               </>

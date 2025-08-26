@@ -28,24 +28,10 @@ public class User {
     // Contact number
     private String phone;
 
-    // Role of the user: "user", "shop", or "admin"
+    // Role of the user: "user"
 private String Role;
     
 
-    // One-to-One relationship with Shop (only if user opens a shop)
-    // @OneToOne(cascade = CascadeType.ALL)
-    // @JoinColumn(name = "shop_id", referencedColumnName = "id")
-    // @JsonIgnore // Prevents recursion when serializing
-    // private Shop shop;
-    // One-to-Many relationship: One user (shop) can upload many products
-    // // private Admin admin;
-    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    // @JsonIgnore // Prevents infinite recursion during JSON serialization
-    // private List<Product> products;
-
-    // public User() {
-    //     this.products = new ArrayList<>();
-    // }
 
     // --- Getters and Setters ---
 
@@ -83,15 +69,6 @@ private String Role;
 
 
 
-
-    // public Shop getShop() {
-    //     return shop;
-    // }
-
-    // public void setShop(Shop shop2) {
-    //     this.shop = shop2;
-    // }
-
     public String getRole(){
         return Role;
     }
@@ -108,17 +85,5 @@ private String Role;
         this.phone = phone;
     }
 
-    // public List<Product> getProducts() {
-    //     return products;
-    // }
-
-    // public void setProducts(List<Product> products) {
-    //     this.products = products;
-    // }
-
-    // public void setRole(String role2) {
-       
-    //     throw new UnsupportedOperationException("Unimplemented method 'setRole'");
-    // }
-
+    
  }

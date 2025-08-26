@@ -1,0 +1,147 @@
+/* layouts */
+
+.product-detail {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 2rem;
+    padding: 2rem;
+    align-items: start;
+    }
+
+
+    /* for images */
+
+    /* .product-image .main-image {
+        border: 1px solid white;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    } */
+
+   .main-image img {
+  width: 100%;
+  height: 350px;
+  object-fit: contain;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.5rem;
+  background: #fff;
+}
+
+ .thumbnail-list{
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+
+        }
+ .thumbnail {
+     width: 60px;
+       height: 60px;
+       object-fit: cover;
+       border: 1px solid white;
+       border-radius: 6px;
+         cursor: pointer;
+        }
+
+  .thumbnail.selected {
+      border: 2px solid #007bff;
+       }
+
+
+       /* Right Part Information */
+        /* product informations  */
+
+        .product-info h2 {
+            margin: 0.5rem;
+        }
+
+        .product-info .description {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+    .price-section {
+        margin: 1rem 0;
+        font-size: 1.2rem;
+    }
+
+    .price-section .price {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #e63746;
+        margin-right: 10px;
+    }
+
+    .price-section .old-price {
+        text-decoration: line-through;
+        color: #888;
+        margin-right: 10px;
+    }
+
+    .price-section .discount {
+        color: green;
+        font-weight: bold;
+    }
+
+
+    /* information box */
+
+    .info-box {
+        border: 1px solid  #ddd;
+        border-radius: 6px;
+        padding: 1rem;
+        margin: 1rem 0;
+        line-height: 1.6;
+        font-size: 0.96rem;
+    }
+
+
+    /* for buttons  */
+
+    .action-buttons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .buy-btn {
+        flex: 1;
+        padding: 0.8rem;
+        background-color: rgb(96, 149, 167);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+
+    .cart-btn {
+        flex: 1;
+        padding: 0.8rem;
+        background-color: rgb(96, 149, 167);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    /* Responsive for mobile View part */
+
+    @media (max-width: 768px ) {
+            .product-detail{
+                grid-template-columns: 1fr;
+            }
+
+            .product-image .main-image img {
+                height: 250px;
+               }
+
+               .action-buttons {
+                flex-direction: column;
+               }
+        
+    }
